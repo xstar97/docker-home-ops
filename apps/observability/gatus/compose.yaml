@@ -6,7 +6,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - /home/$USER/docker/gatus/config:/config
-      - /home/$USER/docker/gatus/data:/data
+      - ~/docker/gatus/config:/config
+      - ~/docker/gatus/data:/data
     environment:
       - GATUS_CONFIG_PATH=/config
