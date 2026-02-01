@@ -1,13 +1,13 @@
 services:
   code-server:
     restart: always
-    image: ghcr.io/coder/code-server:4.105.1
+    image: ghcr.io/coder/code-server:4.108.2
     container_name: code
     ports:
       - 8083:8080
     volumes:
-      - ~/docker/code:/home/coder/.config
-      - ~/docker:/config
+      - /home/xstar97/docker/code:/home/coder/.config
+      - /home/xstar97/docker:/config
     labels:
       - caddy.enable=false
       - homepage.group=Core
