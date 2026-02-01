@@ -10,8 +10,8 @@ services:
       WOL_CONFIG: |
         machines:
           - name: wife-gaming-pc
-            mac: "$GAMING_PC_W_MAC"
-            ip: "$GAMING_PC_W_IP"
+            mac: "${GAMING_PC_W_MAC}"
+            ip: "${GAMING_PC_W_IP}"
         server:
           listen: ":7777"
         ping:
