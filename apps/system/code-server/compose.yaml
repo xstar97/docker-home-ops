@@ -9,7 +9,7 @@ services:
       - $DOCKER_VOL/code:/home/coder/.config
       - $DOCKER_VOL:/config
     labels:
-      - caddy.enable=true
+      - caddy.enable=false
       - homepage.group=Core
       - homepage.name=Code Server
       - homepage.href=http://seb.local:8082

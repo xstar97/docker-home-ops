@@ -1,0 +1,6 @@
+services:
+  whoami:
+    image: traefik/whoami
+    container_name: whoami
+    ports:
+      - 8888:80
