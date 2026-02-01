@@ -4,15 +4,17 @@ services:
     command: serve
     network_mode: host
     container_name: wol
+    env_file:
+      - wol.secrets.enc.env
     environment:
       WOL_CONFIG: |
         machines:
           - name: wife-gaming-pc
-            mac: "34:5A:60:1E:83:89"
-            ip: "10.0.0.63"
+            mac: "${GAMING_PC_W_MAC}"
+            ip: "${GAMING_PC_W_IP}"
         server:
-          listen: ":7777" # Optional, defaults to :7777
+          listen: ":7777"
         ping:
-          privileged: false # Optional, set to true to use privileged ping
+          privileged: false
     labels:
       - wud.tag.include=^\d+\.\d+\.\d+$$
