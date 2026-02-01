@@ -4,14 +4,14 @@ services:
     image: ghcr.io/coder/code-server:4.105.1
     container_name: code
     ports:
-      - 8080
+      - 8083:8080
     volumes:
-      - $DOCKER_VOL/code:/home/coder/.config
-      - $DOCKER_VOL:/config
+      - $/home/${USER}/docker/code:/home/coder/.config
+      - $/home/${USER}/docker:/config
     labels:
       - caddy.enable=false
       - homepage.group=Core
       - homepage.name=Code Server
-      - homepage.href=http://seb.local:8082
+      # - homepage.href=http://seb.local:8082
       - homepage.description=editor software
       - wud.tag.include=^\d+\.\d+\.\d+$$

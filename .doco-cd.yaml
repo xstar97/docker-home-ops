@@ -1,9 +1,8 @@
 ---
 name: wud
-working_dir: apps/system/wud
-#---
-# name: wol
-# working_dir: apps/system/wol
+working_dir: apps/system/wud---
+name: code
+working_dir: apps/system/code-server
 #---
 # name: wol
 # working_dir: apps/system/wol
