@@ -1,7 +1,7 @@
 services:
   gatus:
     restart: always
-    image: ghcr.io/twin/gatus:v5.30.0
+    image: ghcr.io/twin/gatus:v5.34.0
     container_name: gatus
     ports:
       - 8080:8080
@@ -10,3 +10,12 @@ services:
       - /home/xstar97/docker/gatus/data:/data
     environment:
       - GATUS_CONFIG_PATH=/config
+    labels:
+      - caddy.enable=false
+      - homepage.group=Core
+      - homepage.name=Gatus
+      - homepage.icon=gatus.png
+      # - homepage.href=http://seb.local:8081
+      - homepage.widget.type=gatus
+      # - homepage.widget.url=http://seb.local:8081
+      - homepage.description=Status Page

@@ -1,9 +1,22 @@
 services:
   gotify:
-    image: ghcr.io/gotify/server:2.7.3
+    image: ghcr.io/gotify/server:2.8.0
     container_name: gotify
     ports:
-      - 80
+      - 8082:80
     volumes:
-      - $DOCKER_VOL/gotify/data:/app/data
+      - /home/xstar97/docker/gotify/data:/app/data
+    env_file:
+      - ./gotify.secrets.env
+    labels:
+      - caddy.enable=false
+      - homepage.group=Core
+      - homepage.name=Gotify
+      - homepage.icon=gotify.png
+      # - homepage.href=http://gotify.seb.local
+      - homepage.widget.type=gotify
+      # - homepage.widget.url=http://gotify:80
+      # - homepage.widget.key=${HP_KEY}
+      - homepage.description=Alert service
+      - wud.tag.include=^\d+\.\d+\.\d+$$
     restart: on-failure
