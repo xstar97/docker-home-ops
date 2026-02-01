@@ -18,4 +18,6 @@ services:
           privileged: false
     labels:
       - wud.tag.include=^\d+\.\d+\.\d+$$
-      - wol.IP=$GAMING_PC_W_IP
+    depends_on:
+      - "${GAMING_PC_W_IP}" # Dynamically set the dependency
+      - "${GAMING_PC_W_MAC}" # Dynamically set the dependency
