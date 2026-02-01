@@ -4,10 +4,9 @@ services:
     image: ghcr.io/twin/gatus:v5.30.0
     container_name: gatus
     ports:
-      - 8080
+      - 8080:8080
     volumes:
-      - $DOCKER_VOL/gatus/config:/config
-      - $DOCKER_VOL/gatus/data:/data
-    depends_on: []
+      - /home/$USER/docker/gatus//config:/config
+      - /home/$USER/docker/gatus/data:/data
     environment:
       - GATUS_CONFIG_PATH=/config

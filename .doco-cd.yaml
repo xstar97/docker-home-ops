@@ -1,6 +1,9 @@
 ---
-name: whoami
-working_dir: apps/tests/whoami
+name: wud
+working_dir: apps/system/wud
 ---
-name: wol
-working_dir: apps/system/wol
+# name: wol
+# working_dir: apps/system/wol
+---
+# name: wol
+# working_dir: apps/system/wol
