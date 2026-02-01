@@ -6,8 +6,6 @@ services:
       - 8082:80
     volumes:
       - /home/xstar97/docker/gotify/data:/app/data
-    env_file:
-      - ./gotify.secrets.env
     labels:
       - caddy.enable=false
       - homepage.group=Core
