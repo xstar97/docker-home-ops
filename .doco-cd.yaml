@@ -10,3 +10,6 @@ working_dir: apps/observability/gatus
 ---
 name: gotify
 working_dir: apps/networking/gotify
+---
+name: wol
+working_dir: apps/system/wol
