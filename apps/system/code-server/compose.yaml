@@ -6,8 +6,8 @@ services:
     ports:
       - 8083:8080
     volumes:
-      - $/home/${USER}/docker/code:/home/coder/.config
-      - $/home/${USER}/docker:/config
+      - $/home/$USER/docker/code:/home/coder/.config
+      - $/home/$USER/docker:/config
     labels:
       - caddy.enable=false
       - homepage.group=Core
