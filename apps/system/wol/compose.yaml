@@ -4,8 +4,6 @@ services:
     container_name: wol
     command: serve
     network_mode: host
-    env_file:
-      - ./wol.secrets.env
     environment:
       WOL_CONFIG: |
         machines:
