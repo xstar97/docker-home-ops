@@ -1,6 +1,7 @@
 ---
 name: wud
-working_dir: apps/system/wud---
+working_dir: apps/system/wud
+---
 name: code
 working_dir: apps/system/code-server
 #---
