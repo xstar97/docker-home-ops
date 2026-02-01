@@ -6,18 +6,7 @@ services:
     container_name: wol
     env_file:
       - ./wol.secrets.enc.env
-    environment:
-      WOL_CONFIG: |
-        machines:
-          - name: wife-gaming-pc
-            mac: "${GAMING_PC_W_MAC}"
-            ip: "${GAMING_PC_W_IP}"
-        server:
-          listen: ":7777"
-        ping:
-          privileged: false
+    volumes:
+      - ./config.yaml:/etc/wol/config.yaml
     labels:
       - wud.tag.include=^\d+\.\d+\.\d+$$
-    depends_on:
-      - "${GAMING_PC_W_IP}" # Dynamically set the dependency
-      - "${GAMING_PC_W_MAC}" # Dynamically set the dependency
