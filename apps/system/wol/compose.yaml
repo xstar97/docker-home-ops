@@ -5,8 +5,16 @@ services:
     network_mode: host
     container_name: wol
     env_file:
-      - ./wol.secrets.enc.env
-    volumes:
-      - ./config.yaml:/etc/wol/config.yaml
+      - ./wol.secrets.env
+    env:
+      WOL_CONFIG: |
+        machines:
+          - name: wife-gaming-pc
+            mac: "${GAMING_PC_W_MAC}"
+            ip: "${GAMING_PC_W_IP}"
+        server:
+          listen: ":7777" # Optional, defaults to :7777
+        ping:
+          privileged: false # Optional, set to true to use privileged ping
     labels:
       - wud.tag.include=^\d+\.\d+\.\d+$$

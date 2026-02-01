@@ -1,9 +1,0 @@
-machines:
-  - name: wife-gaming-pc
-    mac: "${GAMING_PC_W_MAC}"
-    ip: "${GAMING_PC_W_IP}"
-server:
-  listen: 0.0.0.0:7777
-# Check: https://github.com/prometheus-community/pro-bing?tab=readme-ov-file#supported-operating-systems
-ping:
-  privileged: false
