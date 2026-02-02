@@ -1,5 +1,8 @@
 # system
 ---
+name: homepage
+working_dir: apps/system/homepage
+---
 name: wud
 working_dir: apps/system/wud
 ---
