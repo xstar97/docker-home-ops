@@ -1,5 +1,6 @@
 services:
   caddy:
+    scale: 0  # Add this line to remove the service remotely
     image: caddy:2.10.2-alpine
     container_name: caddy
     restart: on-failure
