@@ -1,13 +1,15 @@
 services:
   caddy:
     build: .
-    # image: caddy-cloudflare:2.10.2
     container_name: caddy
     restart: on-failure
     ports:
       - 80:80
       - 443:443
       - 443:443/udp
+    environment:
+      CLOUDFLARE_API_TOKEN
+      MY_DOMAIN
     volumes:
       - /home/xstar97/docker/data/caddy/conf:/etc/caddy
       - /home/xstar97/docker/data/caddy/data:/data
