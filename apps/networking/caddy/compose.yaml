@@ -12,8 +12,6 @@ services:
       - /home/xstar97/docker/data/caddy/conf:/etc/caddy
       - /home/xstar97/docker/data/caddy/data:/data
       - /home/xstar97/docker/data/caddy/config:/config
-    secrets:
-      - cloudflare_token
     networks:
       - caddy_net
 networks:
