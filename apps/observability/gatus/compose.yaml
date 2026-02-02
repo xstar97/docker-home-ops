@@ -1,15 +1,15 @@
 services:
   gatus:
-    restart: always
     image: ghcr.io/twin/gatus:v5.34.0
     container_name: gatus
+    restart: on-failure
+    environment:
+      - GATUS_CONFIG_PATH=/config
     ports:
       - 8888:8080
     volumes:
       - /home/xstar97/docker/gatus/config:/config
       - /home/xstar97/docker/gatus/data:/data
-    environment:
-      - GATUS_CONFIG_PATH=/config
     labels:
       - caddy.enable=false
       - homepage.group=Core

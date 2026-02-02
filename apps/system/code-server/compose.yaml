@@ -1,8 +1,8 @@
 services:
   code-server:
-    restart: always
     image: ghcr.io/coder/code-server:4.108.2
     container_name: code
+    restart: on-failure
     ports:
       - 8083:8080
     volumes:

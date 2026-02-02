@@ -1,3 +1,0 @@
-services:
-  grafana:
-    scale: 0  # Add this line to remove the service remotely

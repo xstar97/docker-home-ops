@@ -2,6 +2,7 @@ services:
   gotify:
     image: ghcr.io/gotify/server:2.8.0
     container_name: gotify
+    restart: on-failure
     ports:
       - 8082:80
     volumes:
@@ -17,4 +18,3 @@ services:
       - homepage.widget.key=${HP_KEY}
       - homepage.description=Alert service
       - wud.tag.include=^\d+\.\d+\.\d+$$
-    restart: on-failure
