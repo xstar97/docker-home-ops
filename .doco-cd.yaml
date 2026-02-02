@@ -16,6 +16,7 @@ working_dir: apps/system/wol
 ---
 name: gatus
 working_dir: apps/observability/gatus
+
 # networking
 ---
 name: gotify
