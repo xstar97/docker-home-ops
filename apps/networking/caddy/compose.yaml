@@ -1,7 +1,7 @@
 services:
   caddy:
     build: .
-    image: caddy-cloudflare:2.10.2
+    # image: caddy-cloudflare:2.10.2
     container_name: caddy
     restart: on-failure
     ports:
