@@ -6,3 +6,10 @@ services:
     command: tunnel --no-autoupdate run --token ${TUNNEL_TOKEN}
     labels:
       - wud.tag.include=^\d+\.\d+\.\d+$$
+      - homepage.group=Core
+      - homepage.name=Gotify
+      - homepage.icon=cloudflared.png
+      - homepage.widget.type=cloudflared
+      - homepage.widget.tunnelid=${TUNNEL_ID}
+      - homepage.widget.accountid=${ACCOUNT_ID}
+      - homepage.widget.key=${CF_KEY_TOKEN}
