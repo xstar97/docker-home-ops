@@ -3,13 +3,19 @@ services:
     build: .
     container_name: caddy
     restart: on-failure
+    env_file:
+      - .env
     ports:
       - 80:80
       - 443:443
       - 443:443/udp
-    environment:
-      CLOUDFLARE_API_TOKEN
-      MY_DOMAIN
+    command:
+      - caddy
+      - run
+      - --config
+      - /etc/caddy/caddy.yaml
+      - --adapter
+      - yaml
     volumes:
       - /home/xstar97/docker/data/caddy/conf:/etc/caddy
       - /home/xstar97/docker/data/caddy/data:/data
