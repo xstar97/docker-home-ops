@@ -17,3 +17,10 @@ COPY --from=builder /usr/bin/caddy /usr/bin/caddy
 # Install yq for YAML parsing
 RUN apk add --no-cache py3-pip \
     && pip3 install --no-cache-dir yq
+
+# Optional: ensure /etc/caddy exists for config
+RUN mkdir -p /etc/caddy
+WORKDIR /etc/caddy
+
+# Default command
+CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
