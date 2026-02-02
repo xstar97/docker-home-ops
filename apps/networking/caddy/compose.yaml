@@ -4,8 +4,6 @@ services:
     # image: caddy-cloudflare:2.10.2
     container_name: caddy
     restart: on-failure
-    env_file:
-      - .env
     ports:
       - 80:80
       - 443:443
