@@ -7,7 +7,7 @@ services:
     labels:
       - wud.tag.include=^\d+\.\d+\.\d+$$
       - homepage.group=Core
-      - homepage.name=Gotify
+      - homepage.name=CloudFlared
       - homepage.icon=cloudflared.png
       - homepage.widget.type=cloudflared
       - homepage.widget.tunnelid=${TUNNEL_ID}
