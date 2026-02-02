@@ -2,7 +2,7 @@ services:
   cloudflared:
     image: cloudflare/cloudflared:2026.1.2
     container_name: cloudflared
-    command: tunnel --no-autoupdate run
+    command: tunnel --no-autoupdate run --token ${TUNNEL_TOKEN}
     labels:
       - wud.tag.include=^\d+\.\d+\.\d+$$
     restart: on-failure
