@@ -4,6 +4,6 @@ services:
     image: ghcr.io/xstar97/amialive:latest
     restart: unless-stopped
     ports:
-      - ${PORT}:${PORT}
+      - 6969:6969
     environment:
       - PORT=6969
