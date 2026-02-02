@@ -7,7 +7,7 @@ services:
       - /home/xstar97/docker/prunemate/logs:/var/log
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - 8081:3000
+      - 7676:8080
     environment:
       - PRUNEMATE_TIME_24H=true
     labels:
