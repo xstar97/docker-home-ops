@@ -19,5 +19,5 @@ services:
     volumes:
       - /home/xstar97/docker/homepage/config:/app/config
     labels:
-      - caddy.enable=true
+      - caddy.enable=false
       - wud.tag.include=^\d+\.\d+\.\d+$$
