@@ -8,6 +8,9 @@ services:
       - 80:80
       - 443:443
       - 443:443/udp
+    environment:
+      CLOUDFLARE_API_TOKEN: ${CLOUDFLARE_API_TOKEN}
+      MY_DOMAIN: ${MY_DOMAIN}
     volumes:
       - /home/xstar97/docker/data/caddy/conf:/etc/caddy
       - /home/xstar97/docker/data/caddy/data:/data
