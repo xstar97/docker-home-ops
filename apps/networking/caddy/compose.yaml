@@ -1,7 +1,7 @@
 services:
   caddy:
     build: .
-    # image: caddy-cloudflare:2.10.2
+    image: caddy-cloudflare:2.10.2
     container_name: caddy
     restart: on-failure
     ports:
@@ -12,9 +12,10 @@ services:
       - /home/xstar97/docker/data/caddy/conf:/etc/caddy
       - /home/xstar97/docker/data/caddy/data:/data
       - /home/xstar97/docker/data/caddy/config:/config
-    labels:
-      - wud.tag.include=^\d+\.\d+\.\d+-alpine$$
+    secrets:
+      - cloudflare_token
+    networks:
+      - caddy_net
 networks:
-  default:
-    name: caddy_net
+  caddy_net:
     external: true
