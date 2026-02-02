@@ -20,5 +20,6 @@ working_dir: apps/observability/gatus
 ---
 name: gotify
 working_dir: apps/networking/gotify
+---
 name: cloudflared
 working_dir: apps/networking/cloudflared
