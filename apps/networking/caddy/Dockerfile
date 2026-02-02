@@ -1,7 +1,10 @@
 FROM caddy:2.10.2-builder-alpine AS builder
 
 RUN xcaddy build \
-    --with github.com/caddy-dns/cloudflare \ apk add --no-cache yq
+    --with github.com/caddy-dns/cloudflare
+
+# Install yq for YAML parsing
+RUN apk add --no-cache yq
 
 FROM caddy:2.10.2-alpine
 
