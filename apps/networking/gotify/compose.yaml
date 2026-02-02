@@ -16,7 +16,7 @@ services:
       - homepage.icon=gotify.png
       - homepage.href=${HP_HREF}
       - homepage.widget.type=gotify
-      - homepage.widget.url=${HP_WIDGET_URL}
+      - homepage.widget.url=http://gotify:8080
       - homepage.widget.key=${HP_KEY}
       - homepage.description=Alert service
       - wud.tag.include=^\d+\.\d+\.\d+$$

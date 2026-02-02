@@ -17,7 +17,7 @@ services:
       - homepage.icon=gatus.png
       - homepage.href=${HP_HREF}
       - homepage.widget.type=gatus
-      - homepage.widget.url=${HP_WIDGET_URL}
+      - homepage.widget.url=http://gatus:8080
       - homepage.description=Status Page
 networks:
   default:
