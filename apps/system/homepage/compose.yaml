@@ -14,8 +14,10 @@ services:
     container_name: homepage
     ports:
       - 3000:3000
+    environment:
+      HOMEPAGE_ALLOWED_HOSTS: *
     volumes:
       - /home/xstar97/docker/homepage/config:/app/config
     labels:
-      - caddy.enable=false
+      - caddy.enable=true
       - wud.tag.include=^\d+\.\d+\.\d+$$
