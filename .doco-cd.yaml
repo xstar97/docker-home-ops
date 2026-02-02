@@ -14,6 +14,9 @@ working_dir: apps/system/code-server
 ---
 name: wol
 working_dir: apps/system/wol
+---
+name: amialive
+working_dir: apps/system/amialive
 
 # observability
 ---

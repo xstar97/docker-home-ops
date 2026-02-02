@@ -8,8 +8,8 @@ services:
       - 443:443
       - 443:443/udp
     volumes:
-      - $DOCKER_VOL/caddy/conf:/etc/caddy
-      - $DOCKER_VOL/caddy/data:/data
-      - $DOCKER_VOL/caddy/config:/config
+      - /home/xstar97/docker/caddy/conf:/etc/caddy
+      - /home/xstar97/docker/caddy/data:/data
+      - /home/xstar97/docker/caddy/config:/config
     labels:
       - wud.tag.include=^\d+\.\d+\.\d+-alpine$$

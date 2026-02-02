@@ -1,0 +1,9 @@
+services:
+  amialive:
+    container_name: amialive
+    image: ghcr.io/xstar97/amialive:latest
+    restart: unless-stopped
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      - PORT=6969
