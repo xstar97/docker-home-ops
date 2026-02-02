@@ -14,9 +14,6 @@ working_dir: apps/system/code-server
 ---
 name: wol
 working_dir: apps/system/wol
----
-name: amialive
-working_dir: apps/system/amialive
 
 # observability
 ---
@@ -30,3 +27,11 @@ working_dir: apps/networking/gotify
 ---
 name: cloudflared
 working_dir: apps/networking/cloudflared
+
+# tools
+---
+name: rompatcherjs
+working_dir: apps/system/rompatcherjs
+---
+name: amialive
+working_dir: apps/system/amialive
