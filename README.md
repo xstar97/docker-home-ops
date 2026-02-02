@@ -1,4 +1,4 @@
-# 🐳 DockerHomeLab
+# 🐳 docker-home-ops
 
 > **A sleek, self-hosted Docker homelab managed with *doco-cd***
 
