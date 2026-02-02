@@ -1,12 +1,15 @@
 services:
   caddy:
-    image: caddy:2.10.2-alpine
+    build: .
+    image: caddy-cloudflare:2.10.2
     container_name: caddy
     restart: on-failure
     ports:
       - 80:80
       - 443:443
       - 443:443/udp
+    environment:
+      - CF_API_TOKEN=${CF_API_TOKEN}
     volumes:
       - /home/xstar97/docker/data/caddy/conf:/etc/caddy
       - /home/xstar97/docker/data/caddy/data:/data
