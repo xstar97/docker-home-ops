@@ -17,3 +17,7 @@ services:
           privileged: false
     labels:
       - wud.tag.include=^\d+\.\d+\.\d+$
+networks:
+  default:
+    name: caddy_net
+    external: true

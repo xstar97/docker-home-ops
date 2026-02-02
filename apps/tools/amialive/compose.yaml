@@ -4,6 +4,10 @@ services:
     image: ghcr.io/xstar97/amialive:latest
     restart: unless-stopped
     ports:
-      - 6969:6969
+      - ${PORT}
     environment:
       - PORT=6969
+networks:
+  default:
+    name: caddy_net
+    external: true

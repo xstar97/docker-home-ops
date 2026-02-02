@@ -3,6 +3,10 @@ services:
     container_name: rompatcherjs
     image: ghcr.io/xstar97/rompatcherjs:v3.2.1
     ports:
-      - ${SERVER_PORT:-3314}:${SERVER_PORT:-3314}
+      - ${SERVER_PORT:-3314}
     environment:
       - SERVER_PORT=${SERVER_PORT:-3314}
+networks:
+  default:
+    name: caddy_net
+    external: true

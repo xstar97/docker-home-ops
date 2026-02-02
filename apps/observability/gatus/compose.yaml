@@ -6,10 +6,10 @@ services:
     environment:
       - GATUS_CONFIG_PATH=/config
     ports:
-      - 8888:8080
+      - 8080
     volumes:
-      - /home/xstar97/docker/gatus/config:/config
-      - /home/xstar97/docker/gatus/data:/data
+      - /home/xstar97/docker/data/gatus/config:/config
+      - /home/xstar97/docker/data/gatus/data:/data
     labels:
       - caddy.enable=false
       - homepage.group=Core
@@ -19,3 +19,7 @@ services:
       - homepage.widget.type=gatus
       - homepage.widget.url=${HP_WIDGET_URL}
       - homepage.description=Status Page
+networks:
+  default:
+    name: caddy_net
+    external: true

@@ -13,3 +13,7 @@ services:
       - homepage.widget.tunnelid=${TUNNEL_ID}
       - homepage.widget.accountid=${ACCOUNT_ID}
       - homepage.widget.key=${CF_KEY_TOKEN}
+networks:
+  default:
+    name: caddy_net
+    external: true

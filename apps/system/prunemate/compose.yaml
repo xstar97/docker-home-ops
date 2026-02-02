@@ -6,10 +6,14 @@ services:
     environment:
       - PRUNEMATE_TIME_24H=true
     ports:
-      - 7676:8080
+      - 8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /home/xstar97/docker/prunemate/config:/config
-      - /home/xstar97/docker/prunemate/logs:/var/log
+      - /home/xstar97/docker/data/prunemate/config:/config
+      - /home/xstar97/docker/data/prunemate/logs:/var/log
     labels:
       - wud.tag.include=^\d+\.\d+\.\d+$$
+networks:
+  default:
+    name: caddy_net
+    external: true

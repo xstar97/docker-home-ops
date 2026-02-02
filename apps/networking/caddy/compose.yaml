@@ -9,8 +9,12 @@ services:
       - 443:443
       - 443:443/udp
     volumes:
-      - /home/xstar97/docker/caddy/conf:/etc/caddy
-      - /home/xstar97/docker/caddy/data:/data
-      - /home/xstar97/docker/caddy/config:/config
+      - /home/xstar97/docker/data/caddy/conf:/etc/caddy
+      - /home/xstar97/docker/data/caddy/data:/data
+      - /home/xstar97/docker/data/caddy/config:/config
     labels:
       - wud.tag.include=^\d+\.\d+\.\d+-alpine$$
+networks:
+  default:
+    name: caddy_net
+    external: true
