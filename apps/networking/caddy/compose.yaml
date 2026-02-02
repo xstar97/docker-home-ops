@@ -1,6 +1,7 @@
 services:
   caddy:
     build: .
+    image: caddy-cloudflare:2.10.2
     container_name: caddy
     restart: on-failure
     env_file:
@@ -9,13 +10,6 @@ services:
       - 80:80
       - 443:443
       - 443:443/udp
-    command:
-      - caddy
-      - run
-      - --config
-      - /etc/caddy/caddy.yaml
-      - --adapter
-      - yaml
     volumes:
       - /home/xstar97/docker/data/caddy/conf:/etc/caddy
       - /home/xstar97/docker/data/caddy/data:/data
