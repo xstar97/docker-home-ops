@@ -15,7 +15,7 @@ services:
       - homepage.group=Core
       - homepage.name=Gatus
       - homepage.icon=gatus.png
-      # - homepage.href=http://seb.local:8081
+      - homepage.href=${HP_HREF}
       - homepage.widget.type=gatus
-      # - homepage.widget.url=http://seb.local:8081
+      - homepage.widget.url=${HP_WIDGET_URL}
       - homepage.description=Status Page
