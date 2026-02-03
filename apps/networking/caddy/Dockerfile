@@ -1,11 +1,10 @@
-ARG CADDY_VERSION=2.10.2-alpine
-FROM caddy:${CADDY_VERSION}-builder AS builder
+FROM caddy:2.10.2-builder-alpine AS builder
 
 RUN xcaddy build \
-    --with github.com/lucaslorentz/caddy-docker-proxy/v2 \
-    --with github.com/caddy-dns/cloudflare 
+    --with github.com/caddy-dns/cloudflare \
+    --with github.com/lucaslorentz/caddy-docker-proxy/v2
 
-FROM caddy:${CADDY_VERSION}-alpine
+FROM caddy:2.10.2-alpine
 
 RUN apk add --no-cache yq nano
 
