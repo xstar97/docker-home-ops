@@ -17,6 +17,8 @@ services:
           privileged: false
     labels:
       - wud.tag.include=^\d+\.\d+\.\d+$
+      - caddy=wol.${BASE_DOMAIN}
+      - caddy.reverse_proxy="{{upstreams 7777}}"
 networks:
   default:
     name: caddy_net

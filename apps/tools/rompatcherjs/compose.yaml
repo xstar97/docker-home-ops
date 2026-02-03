@@ -6,6 +6,9 @@ services:
       - ${SERVER_PORT:-3314}
     environment:
       - SERVER_PORT=${SERVER_PORT:-3314}
+    labels:
+      - caddy=rompatcherjs.${BASE_DOMAIN}
+      - caddy.reverse_proxy="{{upstreams 3314}}"
 networks:
   default:
     name: caddy_net

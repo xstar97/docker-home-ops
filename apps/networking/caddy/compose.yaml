@@ -9,9 +9,13 @@ services:
       - 443:443
       - 443:443/udp
     volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - /home/xstar97/docker/data/caddy/conf:/etc/caddy
       - /home/xstar97/docker/data/caddy/data:/data
       - /home/xstar97/docker/data/caddy/config:/config
+    environment:
+      - CADDY_DOCKER_CADDYFILE_PATH=/etc/caddy/docker.Caddyfile
+      - CADDY_INGRESS_NETWORKS=caddy_net
     networks:
       - caddy_net
 networks:

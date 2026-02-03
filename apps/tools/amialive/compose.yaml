@@ -7,6 +7,9 @@ services:
       - 6969
     environment:
       - PORT=6969
+    labels:
+      - caddy=amialive.${BASE_DOMAIN}
+      - caddy.reverse_proxy="{{upstreams 6969}}"
 networks:
   default:
     name: caddy_net

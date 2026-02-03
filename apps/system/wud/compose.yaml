@@ -16,6 +16,8 @@ services:
     labels:
       - wud.tag.include=^\d+\.\d+\.\d+$$
       - wud.link.template=https://github.com/getwud/wud/releases/tag/$${major}.$${minor}.$${patch}
+      - caddy=wud.${BASE_DOMAIN}
+      - caddy.reverse_proxy="{{upstreams 3000}}"
 networks:
   default:
     name: caddy_net

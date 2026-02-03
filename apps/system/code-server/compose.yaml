@@ -9,8 +9,9 @@ services:
       - /home/xstar97/docker/data/code:/home/coder/.config
       - /home/xstar97/docker:/config
     labels:
-      - caddy.enable=false
       - wud.tag.include=^\d+\.\d+\.\d+$$
+      - caddy=code.${BASE_DOMAIN}
+      - caddy.reverse_proxy="{{upstreams 8080}}"
 networks:
   default:
     name: caddy_net

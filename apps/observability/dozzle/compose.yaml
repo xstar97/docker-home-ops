@@ -19,7 +19,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
-      - caddy.enable=false
+      caddy: dozzle.${BASE_DOMAIN}
+      caddy.reverse_proxy: "{{upstreams 8080}}"
 networks:
   default:
     name: caddy_net
