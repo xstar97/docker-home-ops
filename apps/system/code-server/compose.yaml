@@ -1,3 +1,12 @@
+x-healthcheck: &healthcheck
+  disable: true
+  test:
+    ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:2019/metrics"]
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 15s
+
 services:
   code-server:
     image: ghcr.io/coder/code-server:4.108.2
@@ -5,13 +14,7 @@ services:
     restart: on-failure
     ports:
       - 8080
-    healthcheck:
-      disable: true
-      test: ["CMD", "curl", "-f", "http://localhost:8080/healthz", "||", "exit", "1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 15s
+    # healthcheck: *healthcheck
     volumes:
       - /home/xstar97/docker/data/code:/home/coder/.config
       - /home/xstar97/docker:/config

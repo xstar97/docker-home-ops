@@ -1,3 +1,12 @@
+x-healthcheck: &healthcheck
+  disable: true
+  test:
+    ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:2019/metrics"]
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 15s
+
 services:
   dozzle:
     image: amir20/dozzle:v9.0.3
@@ -10,13 +19,7 @@ services:
       - DOZZLE_NO_ANALYTICS=true
     ports:
       - 8080
-    healthcheck:
-      disable: true
-      test: ["CMD", "/dozzle", "healthcheck"]
-      interval: 3s
-      timeout: 30s
-      retries: 5
-      start_period: 30s
+    # healthcheck: *healthcheck
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     labels:

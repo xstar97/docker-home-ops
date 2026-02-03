@@ -1,3 +1,12 @@
+x-healthcheck: &healthcheck
+  disable: true
+  test:
+    ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:2019/metrics"]
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 15s
+
 services:
   wol:
     image: ghcr.io/trugamr/wol:0.1.0
@@ -5,13 +14,7 @@ services:
     command: serve
     network_mode: host
     restart: on-failure
-    healthcheck:
-      disable: true
-      test: curl --fail http://localhost:7777 || exit 1
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
+    # healthcheck: *healthcheck
     environment:
       WOL_CONFIG: |
         machines:

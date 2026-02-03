@@ -1,3 +1,12 @@
+x-healthcheck: &healthcheck
+  disable: true
+  test:
+    ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:2019/metrics"]
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 15s
+
 services:
   caddy:
     build: .
@@ -8,13 +17,7 @@ services:
       - 80:80
       - 443:443
       - 443:443/udp
-    healthcheck:
-      disable: true
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:2019/metrics", "||", "exit", "1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 15s
+    # healthcheck: *healthcheck
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /home/xstar97/docker/data/caddy/conf:/etc/caddy

@@ -1,3 +1,12 @@
+x-healthcheck: &healthcheck
+  disable: true
+  test:
+    ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:2019/metrics"]
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 15s
+
 services:
   homepage:
     image: ghcr.io/gethomepage/homepage:v1.9.0
@@ -5,14 +14,7 @@ services:
     restart: on-failure
     ports:
       - 3000
-    healthcheck:
-      disable: true
-      # test: cmd curl --fail --spider http://localhost:3000/api/healthcheck || exit 1
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/healthcheck", "||", "exit", "1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 15s
+    # healthcheck: *healthcheck
     environment:
       HOMEPAGE_ALLOWED_HOSTS: "*"
     volumes:
