@@ -1,0 +1,26 @@
+services:
+  dozzle:
+    image: amir20/dozzle:v9.0.3
+    container_name: dozzle
+    restart: on-failure
+    environment:
+      - DOZZLE_ADDR=:8080
+      - DOZZLE_ENABLE_ACTIONS=true
+      - DOZZLE_ENABLE_SHELL=true
+      - DOZZLE_NO_ANALYTICS=true
+    ports:
+      - 8080
+    healthcheck:
+      test: ["CMD", "/dozzle", "healthcheck"]
+      interval: 3s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - caddy.enable=false
+networks:
+  default:
+    name: caddy_net
+    external: true
