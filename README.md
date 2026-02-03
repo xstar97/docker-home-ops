@@ -10,7 +10,7 @@
 
 ## ✨ Overview
 
-**DockerHomeLab** is my personal homelab setup built around Docker, designed to be **simple**, **reproducible**, and **automation‑friendly**. The entire stack is managed using **doco-cd**, making deployments predictable and easy to maintain.
+**DockerHomeOps** is my personal homelab setup built around Docker, designed to be **simple**, **reproducible**, and **automation‑friendly**. The entire stack is managed using **doco-cd**, making deployments predictable and easy to maintain.
 
 This repo serves as:
 
