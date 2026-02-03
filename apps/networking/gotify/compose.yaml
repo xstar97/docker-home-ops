@@ -5,6 +5,12 @@ services:
     restart: on-failure
     ports:
       - 8080
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail http://localhost:$GOTIFY_SERVER_PORT/health || exit 1"]
+      interval: 60s # Check every 60 seconds
+      timeout: 10s  # Timeout after 10 seconds
+      retries: 3    # Retry 3 times before marking as unhealthy
+      start_period: 30s # Give it 30 seconds to start initially
     volumes:
       - /home/xstar97/docker/data/gotify/data:/app/data
     environment:

@@ -7,6 +7,12 @@ services:
       - GATUS_CONFIG_PATH=/config
     ports:
       - 8080
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health", "||", "exit", "1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
     volumes:
       - /home/xstar97/docker/data/gatus/config:/config
       - /home/xstar97/docker/data/gatus/data:/data

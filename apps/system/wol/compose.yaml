@@ -5,6 +5,12 @@ services:
     command: serve
     network_mode: host
     restart: on-failure
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:7777/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
     environment:
       WOL_CONFIG: |
         machines:
