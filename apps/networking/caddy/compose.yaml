@@ -16,6 +16,8 @@ services:
     environment:
       - CADDY_DOCKER_CADDYFILE_PATH=/etc/caddy/docker.Caddyfile
       - CADDY_INGRESS_NETWORKS=caddy_net
+      - BASE_DOMAIN=${BASE_DOMAIN}
+      - CLOUDFLARE_API_TOKEN=${CLOUDFLARE_API_TOKEN}
     networks:
       - caddy_net
 networks:
