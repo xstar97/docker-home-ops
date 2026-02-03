@@ -1,7 +1,5 @@
 x-healthcheck: &healthcheck
-  disable: true
-  test:
-    ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:2019/metrics"]
+  test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/healthcheck"]
   interval: 30s
   timeout: 10s
   retries: 3
@@ -14,7 +12,7 @@ services:
     restart: on-failure
     ports:
       - 3000
-    # healthcheck: *healthcheck
+    healthcheck: *healthcheck
     environment:
       HOMEPAGE_ALLOWED_HOSTS: "*"
     volumes:
