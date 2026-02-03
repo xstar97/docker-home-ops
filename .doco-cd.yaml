@@ -1,4 +1,6 @@
 working_dir: apps/
 auto_discover: true
+env_files:
+  - remote:base.env
 auto_discover_opts:
   depth: 0
