@@ -1,5 +1,4 @@
 x-healthcheck: &healthcheck
-  disable: true
   test: curl -f http://localhost/healthz || exit 1
   interval: 30s
   timeout: 10s
