@@ -1,6 +1,4 @@
 working_dir: apps/
 auto_discover: true
-env_files:
-  - base.env
 auto_discover_opts:
   depth: 0
