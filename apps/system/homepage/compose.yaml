@@ -6,6 +6,8 @@ services:
     ports:
       - 3000
     healthcheck:
+      disable: true
+      # test: cmd curl --fail --spider http://localhost:3000/api/healthcheck || exit 1
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/healthcheck", "||", "exit", "1"]
       interval: 30s
       timeout: 10s

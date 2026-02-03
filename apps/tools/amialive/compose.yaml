@@ -6,6 +6,7 @@ services:
     ports:
       - 6969
     healthcheck:
+      disable: true
       test: curl --fail http://localhost:${PORT}/healthz || exit 1
       interval: 10s
       timeout: 10s

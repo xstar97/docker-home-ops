@@ -11,6 +11,7 @@ services:
     ports:
       - 8080
     healthcheck:
+      disable: true
       test: ["CMD", "/dozzle", "healthcheck"]
       interval: 3s
       timeout: 30s

@@ -8,6 +8,7 @@ services:
     ports:
       - 3000
     healthcheck:
+      disable: true
       test: curl --fail http://localhost:${WUD_SERVER_PORT}/health || exit 1
       interval: 10s
       timeout: 10s
