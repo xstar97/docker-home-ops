@@ -59,6 +59,8 @@ services:
       traefik.http.middlewares.error-pages-middleware.errors.query: /{status}.html
       # define service properties
       traefik.http.services.error-pages-service.loadbalancer.server.port: 8080
+    networks:
+      - internal
 networks:
   internal:
     external: true
