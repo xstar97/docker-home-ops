@@ -22,6 +22,8 @@ services:
       - --entrypoints.websecure.http.tls.domains[0].main=*.${BASE_DOMAIN}
       - --providers.docker=true
       - --providers.docker.exposedByDefault=false
+      - "--log.level=DEBUG"  # Set log level to DEBUG
+      - "--accesslog=true"   # Enable access logs to stdout
     ports:
       - 81:81
       - 444:444
