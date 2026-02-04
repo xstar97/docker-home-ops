@@ -21,9 +21,10 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.gotify.rule=Host(`gotify.${BASE_DOMAIN}`)"
       - "traefik.http.services.gotify.loadbalancer.server.port=8080"
-      - "traefik.http.routers.gotify.entrypoints=websecure"  # Use the websecure entrypoint (HTTPS)
-      - "traefik.http.routers.gotify.tls=true"  # Enable TLS
-      - "traefik.http.routers.gotify.tls.certResolver=cf"  # Use the cf resolver (Cloudflare
+      - "traefik.http.routers.gotify.entrypoints=websecure"
+      - "traefik.http.routers.gotify.tls=true"
+      - "traefik.http.routers.gotify.tls.certResolver=cf"
+      - "traefik.http.routers.gotify.middlewares=error-pages-middleware"
       - homepage.group=Core
       - homepage.name=Gotify
       - homepage.icon=gotify.png

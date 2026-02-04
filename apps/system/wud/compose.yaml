@@ -23,9 +23,10 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.wud.rule=Host(`wud.${BASE_DOMAIN}`)"
       - "traefik.http.services.wud.loadbalancer.server.port=3000"
-      - "traefik.http.routers.wud.entrypoints=websecure"  # Use the websecure entrypoint (HTTPS)
-      - "traefik.http.routers.wud.tls=true"  # Enable TLS
-      - "traefik.http.routers.wud.tls.certResolver=cf"  # Use the cf resolver (Cloudflare
+      - "traefik.http.routers.wud.entrypoints=websecure"
+      - "traefik.http.routers.wud.tls=true"
+      - "traefik.http.routers.wud.tls.certResolver=cf"
+      - "traefik.http.routers.wud.middlewares=error-pages-middleware"
       - wud.tag.include=^\d+\.\d+\.\d+$$
       - wud.link.template=https://github.com/getwud/wud/releases/tag/$${major}.$${minor}.$${patch}
 networks:

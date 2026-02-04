@@ -34,11 +34,13 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.rule=Host(`traefik.${BASE_DOMAIN}`)"  # Expose dashboard
-      - "traefik.http.services.traefik.loadbalancer.server.port=8080"  # Dashboard listens on port 8080
-      - "traefik.http.routers.traefik.entrypoints=websecure"  # Serve the dashboard over HTTPS
-      - "traefik.http.routers.traefik.tls=true"  # Enable TLS for the dashboard
-      - "traefik.http.routers.traefik.tls.certResolver=cf"  # Use Let's Encrypt for TLS
-      - "traefik.http.routers.traefik.middlewares: error-pages-middleware"
+      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+      - "traefik.http.routers.traefik.entrypoints=websecure"
+      - "traefik.http.routers.traefik.tls=true"
+      - "traefik.http.routers.traefik.tls.certResolver=cf"
+      - "traefik.http.routers.traefik.middlewares=error-pages-middleware"
+    depends_on:
+      error-pages: {condition: service_healthy}
     networks:
       - internal
   error-pages:

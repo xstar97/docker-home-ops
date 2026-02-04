@@ -12,7 +12,7 @@ services:
     image: ghcr.io/trugamr/wol:0.1.0
     container_name: wol
     command: serve
-    network_mode: host  # Uses host network
+    network_mode: host
     restart: on-failure
     # healthcheck: *healthcheck
     environment:
@@ -26,9 +26,13 @@ services:
         ping:
           privileged: false
     labels:
-      - "traefik.enable=false"  # Enable routing
+      - "traefik.enable=false"
+      - "traefik.http.routers.wol.entrypoints=websecure"
+      - "traefik.http.routers.wol.tls=true"
+      - "traefik.http.routers.wol.tls.certResolver=cf"
+      - "traefik.http.routers.wol.middlewares=error-pages-middleware"
       - wud.tag.include=^\d+\.\d+\.\d+$
 networks:
   default:
-    name: internal
+    name: caddy_net
     external: true

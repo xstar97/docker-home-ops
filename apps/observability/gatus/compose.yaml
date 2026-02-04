@@ -22,9 +22,10 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.gatus.rule=Host(`gatus.${BASE_DOMAIN}`)"
       - "traefik.http.services.gatus.loadbalancer.server.port=8080"
-      - "traefik.http.routers.gatus.entrypoints=websecure"  # Use the websecure entrypoint (HTTPS)
-      - "traefik.http.routers.gatus.tls=true"  # Enable TLS
-      - "traefik.http.routers.gatus.tls.certResolver=cf"  # Use the cf resolver (Cloudflare
+      - "traefik.http.routers.gatus.entrypoints=websecure"
+      - "traefik.http.routers.gatus.tls=true"
+      - "traefik.http.routers.gatus.tls.certResolver=cf"
+      - "traefik.http.routers.gatus.middlewares=error-pages-middleware"
       - homepage.group=Core
       - homepage.name=Gatus
       - homepage.icon=gatus.png

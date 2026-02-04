@@ -20,9 +20,10 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.code.rule=Host(`code.${BASE_DOMAIN}`)"
       - "traefik.http.services.code.loadbalancer.server.port=8080"
-      - "traefik.http.routers.dozzle.entrypoints=websecure"  # Use the websecure entrypoint (HTTPS)
-      - "traefik.http.routers.dozzle.tls=true"  # Enable TLS
-      - "traefik.http.routers.dozzle.tls.certResolver=cf"  # Use the cf resolver (Cloudflare
+      - "traefik.http.routers.code.entrypoints=websecure"
+      - "traefik.http.routers.code.tls=true"
+      - "traefik.http.routers.code.tls.certResolver=cf"
+      - "traefik.http.routers.code.middlewares=error-pages-middleware"
       - wud.tag.include=^\d+\.\d+\.\d+$$
 networks:
   default:

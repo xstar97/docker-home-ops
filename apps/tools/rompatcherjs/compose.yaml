@@ -18,9 +18,10 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.rompatcherjs.rule=Host(`rompatcherjs.${BASE_DOMAIN}`)"
       - "traefik.http.services.rompatcherjs.loadbalancer.server.port=3314"
-      - "traefik.http.routers.rompatcherjs.entrypoints=websecure"  # Use the websecure entrypoint (HTTPS)
-      - "traefik.http.routers.rompatcherjs.tls=true"  # Enable TLS
-      - "traefik.http.routers.rompatcherjs.tls.certResolver=cf"  # Use the cf resolver (Cloudflare
+      - "traefik.http.routers.rompatcherjs.entrypoints=websecure"
+      - "traefik.http.routers.rompatcherjs.tls=true"
+      - "traefik.http.routers.rompatcherjs.tls.certResolver=cf"
+      - "traefik.http.routers.rompatcherjs.middlewares=error-pages-middleware"
 networks:
   default:
     name: internal

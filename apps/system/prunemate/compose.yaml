@@ -24,9 +24,10 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.prunemate.rule=Host(`prunemate.${BASE_DOMAIN}`)"
       - "traefik.http.services.prunemate.loadbalancer.server.port=8080"
-      - "traefik.http.routers.prunemate.entrypoints=websecure"  # Use the websecure entrypoint (HTTPS)
-      - "traefik.http.routers.prunemate.tls=true"  # Enable TLS
-      - "traefik.http.routers.prunemate.tls.certResolver=cf"  # Use the cf resolver (Cloudflare
+      - "traefik.http.routers.prunemate.entrypoints=websecure"
+      - "traefik.http.routers.prunemate.tls=true"
+      - "traefik.http.routers.prunemate.tls.certResolver=cf"
+      - "traefik.http.routers.prunemate.middlewares=error-pages-middleware"
       - wud.tag.include=^\d+\.\d+\.\d+$$
 networks:
   default:
