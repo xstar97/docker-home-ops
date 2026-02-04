@@ -22,8 +22,8 @@ services:
       - /home/xstar97/docker/data/prunemate/logs:/var/log
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.homepage.rule=Host(`homepage.${BASE_DOMAIN}`)"
-      - "traefik.http.services.homepage.loadbalancer.server.port=8080" 
+      - "traefik.http.routers.prunemate.rule=Host(`prunemate.${BASE_DOMAIN}`)"
+      - "traefik.http.services.prunemate.loadbalancer.server.port=8080" 
       - wud.tag.include=^\d+\.\d+\.\d+$$
 networks:
   default:
