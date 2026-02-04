@@ -31,7 +31,7 @@ services:
       - "traefik.http.routers.wol.service=wol-service"  # Define the custom service name
       - "traefik.http.services.wol-service.loadbalancer.server.scheme=http"  # Set the scheme (http or https)
       - "traefik.http.services.wol-service.loadbalancer.server.port=7777"  # Specify port 7777
-      - "traefik.http.services.wol-service.loadbalancer.server.address=seb.local"  # Direct to specific IP address
+      - "traefik.http.services.wol-service.loadbalancer.server.address=${SEB_IP}"  # Direct to specific IP address
       - wud.tag.include=^\d+\.\d+\.\d+$
 networks:
   default:
