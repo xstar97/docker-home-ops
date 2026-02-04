@@ -1,0 +1,44 @@
+
+services:
+  caddy:
+    image: traefik:v3.6.7
+    container_name: caddy
+    restart: on-failure
+    # environment:
+    #   - BASE_DOMAIN=${BASE_DOMAIN}
+    command:
+      - --certificatesresolvers.cf.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
+      - --certificatesresolvers.cf.acme.dnsChallenge.delayBeforeCheck=0
+      - --certificatesresolvers.cf.acme.dnsChallenge.provider=cloudflare
+      - --certificatesresolvers.cf.acme.dnsChallenge.resolvers=1.1.1.1:53
+      - --certificatesresolvers.cf.acme.storage=/certs/acme.json
+      - --entryPoints.web.address=:80
+      - --entryPoints.web.http.redirections.entryPoint.scheme=https
+      - --entryPoints.web.http.redirections.entryPoint.to=websecure
+      - --entryPoints.websecure.address=:443
+      - --entrypoints.websecure.http.tls=true
+      - --entrypoints.websecure.http.tls.certResolver=cf
+      - --entrypoints.websecure.http.tls.domains[0].main=*.${BASE_DOMAIN}
+      - --providers.docker=true
+      - --providers.docker.exposedByDefault=false
+    ports:
+      - 81:80
+      - 444:443
+      - 444:443/udp
+    # healthcheck: *healthcheck
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /home/xstar97/docker/data/traefik/certs:/certs
+    networks:
+      - internal
+  whoami:
+    image: traefik/whoami
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.${BASE_DOMAIN}`)"
+      - "traefik.http.services.whoami.loadbalancer.server.port=80" 
+    networks:
+      - internal
+networks:
+  internal:
+    external: true
