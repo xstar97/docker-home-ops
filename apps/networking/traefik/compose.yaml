@@ -1,8 +1,8 @@
 
 services:
-  caddy:
+  traefik:
     image: traefik:v3.6.7
-    container_name: caddy
+    container_name: traefik
     restart: on-failure
     # environment:
     #   - BASE_DOMAIN=${BASE_DOMAIN}
@@ -33,6 +33,7 @@ services:
       - internal
   whoami:
     image: traefik/whoami
+    container_name: whoami
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.whoami.rule=Host(`whoami.${BASE_DOMAIN}`)"
