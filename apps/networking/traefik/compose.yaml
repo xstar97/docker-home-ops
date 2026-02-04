@@ -42,6 +42,7 @@ services:
     networks:
       - internal
   error-pages:
+    container_name: error-pages
     image: ghcr.io/tarampampam/error-pages:3.8.0 # using the latest tag is highly discouraged
     environment:
       TEMPLATE_NAME: app-down # set the error pages template
