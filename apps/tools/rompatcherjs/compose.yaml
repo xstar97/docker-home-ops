@@ -14,7 +14,6 @@ services:
     healthcheck: *healthcheck
     environment:
       - SERVER_PORT=3314
-      - HELLO=${HELLO}
     labels:
       - caddy=rompatcherjs.${BASE_DOMAIN}
       - caddy.reverse_proxy="{{upstreams 3314}}"
