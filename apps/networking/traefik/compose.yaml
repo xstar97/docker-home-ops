@@ -25,9 +25,9 @@ services:
       - "--log.level=DEBUG"  # Set log level to DEBUG
       - "--accesslog=true"   # Enable access logs to stdout
     ports:
-      - 81:80
-      - 444:443
-      - 444:443/udp
+      - 80:80
+      - 443:443
+      - 443:443/udp
     # healthcheck: *healthcheck
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
