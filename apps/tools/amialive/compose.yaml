@@ -16,7 +16,7 @@ services:
     environment:
       - PORT=6969
     labels:
-      - "traefik.enable=true"
+      - "traefik.enable=false"
       - "traefik.http.routers.amialive.rule=Host(`amialive.${BASE_DOMAIN}`)"
       - "traefik.http.services.amialive.loadbalancer.server.port=6969" 
 networks:
