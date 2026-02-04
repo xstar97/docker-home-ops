@@ -28,6 +28,7 @@ services:
       - "traefik.http.routers.dozzle.tls=true"
       - "traefik.http.routers.dozzle.tls.certResolver=cf"
       - "traefik.http.routers.dozzle.middlewares=error-pages-middleware"
+      - wud.tag.include=^\d+\.\d+\.\d+$$
 networks:
   default:
     name: internal
