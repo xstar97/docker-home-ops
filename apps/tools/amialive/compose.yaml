@@ -16,9 +16,12 @@ services:
     environment:
       - PORT=6969
     labels:
-      - "traefik.enable=false"
+      - "traefik.enable=true"
       - "traefik.http.routers.amialive.rule=Host(`amialive.${BASE_DOMAIN}`)"
-      - "traefik.http.services.amialive.loadbalancer.server.port=6969" 
+      - "traefik.http.services.amialive.loadbalancer.server.port=6969"
+      - "traefik.http.routers.amialive.entrypoints=websecure"  # Use the websecure entrypoint (HTTPS)
+      - "traefik.http.routers.amialive.tls=true"  # Enable TLS
+      - "traefik.http.routers.amialive.tls.certResolver=cf"  # Use the cf resolver (Cloudflare
 networks:
   default:
     name: internal
