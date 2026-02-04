@@ -18,7 +18,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.gotify.rule=Host(`gotify.${BASE_DOMAIN}`)"
-      - "traefik.http.services.gotify.loadbalancer.server.port=${GOTIFY_SERVER_PORT}"
+      # - "traefik.http.services.gotify.loadbalancer.server.port=8080"
       - "traefik.http.routers.gotify.entrypoints=websecure"
       - "traefik.http.routers.gotify.tls=true"
       - "traefik.http.routers.gotify.tls.certResolver=cf"
