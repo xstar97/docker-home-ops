@@ -28,7 +28,7 @@ services:
     labels:
       - "traefik.enable=true"
       # Router
-      - "traefik.http.routers.wol.rule=Host(`wol.example.com`)"
+      - "traefik.http.routers.wud.rule=Host(`wud.${BASE_DOMAIN}`)"
       - "traefik.http.routers.wol.entrypoints=websecure"
       - "traefik.http.routers.wol.tls=true"
       - "traefik.http.routers.wol.tls.certresolver=cf"
