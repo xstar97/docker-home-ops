@@ -19,10 +19,11 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /home/xstar97/docker/data/homepage/config:/app/config
     labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.homepage.rule=Host(`homepage.${BASE_DOMAIN}`)"
+      - "traefik.http.services.homepage.loadbalancer.server.port=3000" 
       - wud.tag.include=^\d+\.\d+\.\d+$$
-      - caddy=homepage.${BASE_DOMAIN}
-      - caddy.reverse_proxy="{{upstreams 3000}}"
 networks:
   default:
-    name: caddy_net
+    name: internal
     external: true

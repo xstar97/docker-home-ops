@@ -16,9 +16,10 @@ services:
     environment:
       - PORT=6969
     labels:
-      - caddy=amialive.${BASE_DOMAIN}
-      - caddy.reverse_proxy="{{upstreams 6969}}"
+      - "traefik.enable=true"
+      - "traefik.http.routers.amialive.rule=Host(`amialive.${BASE_DOMAIN}`)"
+      - "traefik.http.services.amialive.loadbalancer.server.port=6969" 
 networks:
   default:
-    name: caddy_net
+    name: internal
     external: true

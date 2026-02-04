@@ -13,10 +13,10 @@ services:
       - --certificatesresolvers.cf.acme.dnsChallenge.provider=cloudflare
       - --certificatesresolvers.cf.acme.dnsChallenge.resolvers=1.1.1.1:53
       - --certificatesresolvers.cf.acme.storage=/certs/acme.json
-      - --entryPoints.web.address=:81
+      - --entryPoints.web.address=:80
       - --entryPoints.web.http.redirections.entryPoint.scheme=https
       - --entryPoints.web.http.redirections.entryPoint.to=websecure
-      - --entryPoints.websecure.address=:444
+      - --entryPoints.websecure.address=:443
       - --entrypoints.websecure.http.tls=true
       - --entrypoints.websecure.http.tls.certResolver=cf
       - --entrypoints.websecure.http.tls.domains[0].main=*.${BASE_DOMAIN}
@@ -25,22 +25,13 @@ services:
       - "--log.level=DEBUG"  # Set log level to DEBUG
       - "--accesslog=true"   # Enable access logs to stdout
     ports:
-      - 81:81
-      - 444:444
-      - 444:444/udp
+      - 81:80
+      - 444:443
+      - 444:443/udp
     # healthcheck: *healthcheck
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /home/xstar97/docker/data/traefik/certs:/certs
-    networks:
-      - internal
-  whoami:
-    image: traefik/whoami
-    container_name: whoami
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`whoami.${BASE_DOMAIN}`)"
-      - "traefik.http.services.whoami.loadbalancer.server.port=80" 
     networks:
       - internal
 networks:

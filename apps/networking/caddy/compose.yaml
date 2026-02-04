@@ -7,6 +7,7 @@ x-healthcheck: &healthcheck
 
 services:
   caddy:
+    scale: 0
     build: .
     image: caddy-cloudflare:2.10.2
     container_name: caddy

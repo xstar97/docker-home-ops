@@ -20,11 +20,12 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wud.rule=Host(`wud.${BASE_DOMAIN}`)"
+      - "traefik.http.services.wud.loadbalancer.server.port=3000" 
       - wud.tag.include=^\d+\.\d+\.\d+$$
       - wud.link.template=https://github.com/getwud/wud/releases/tag/$${major}.$${minor}.$${patch}
-      - caddy=wud.${BASE_DOMAIN}
-      - caddy.reverse_proxy="{{upstreams 3000}}"
 networks:
   default:
-    name: caddy_net
+    name: internal
     external: true

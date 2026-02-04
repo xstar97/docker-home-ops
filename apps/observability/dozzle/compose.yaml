@@ -21,9 +21,10 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
-      caddy: dozzle.${BASE_DOMAIN}
-      caddy.reverse_proxy: "{{upstreams 8080}}"
+      - "traefik.enable=true"
+      - "traefik.http.routers.dozzle.rule=Host(`dozzle.${BASE_DOMAIN}`)"
+      - "traefik.http.services.dozzle.loadbalancer.server.port=8080" 
 networks:
   default:
-    name: caddy_net
+    name: internal
     external: true

@@ -26,10 +26,11 @@ services:
         ping:
           privileged: false
     labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wol.rule=Host(`wol.${BASE_DOMAIN}`)"
+      - "traefik.http.services.wol.loadbalancer.server.port=7777" 
       - wud.tag.include=^\d+\.\d+\.\d+$
-      - caddy=wol.${BASE_DOMAIN}
-      - caddy.reverse_proxy="http://seb.local:7777"
 networks:
   default:
-    name: caddy_net
+    name: internal
     external: true

@@ -15,5 +15,5 @@ services:
       - homepage.widget.key=${CF_KEY_TOKEN}
 networks:
   default:
-    name: caddy_net
+    name: internal
     external: true

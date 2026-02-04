@@ -17,10 +17,11 @@ services:
       - /home/xstar97/docker/data/code:/home/coder/.config
       - /home/xstar97/docker:/config
     labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.code.rule=Host(`code.${BASE_DOMAIN}`)"
+      - "traefik.http.services.code.loadbalancer.server.port=8080" 
       - wud.tag.include=^\d+\.\d+\.\d+$$
-      - caddy=code.${BASE_DOMAIN}
-      - caddy.reverse_proxy="{{upstreams 8080}}"
 networks:
   default:
-    name: caddy_net
+    name: internal
     external: true

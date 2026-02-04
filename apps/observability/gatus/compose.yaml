@@ -19,6 +19,9 @@ services:
       - /home/xstar97/docker/data/gatus/config:/config
       - /home/xstar97/docker/data/gatus/data:/data
     labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.gatus.rule=Host(`gatus.${BASE_DOMAIN}`)"
+      - "traefik.http.services.gatus.loadbalancer.server.port=8080" 
       - homepage.group=Core
       - homepage.name=Gatus
       - homepage.icon=gatus.png
@@ -26,9 +29,7 @@ services:
       - homepage.widget.type=gatus
       - homepage.widget.url=http://gatus:8080
       - homepage.description=Status Page
-      - caddy=gatus.${BASE_DOMAIN}
-      - caddy.reverse_proxy="{{upstreams 8080}}"
 networks:
   default:
-    name: caddy_net
+    name: internal
     external: true

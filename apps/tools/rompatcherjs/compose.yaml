@@ -15,9 +15,10 @@ services:
     environment:
       - SERVER_PORT=3314
     labels:
-      - caddy=rompatcherjs.${BASE_DOMAIN}
-      - caddy.reverse_proxy="{{upstreams 3314}}"
+      - "traefik.enable=true"
+      - "traefik.http.routers.rompatcherjs.rule=Host(`rompatcherjs.${BASE_DOMAIN}`)"
+      - "traefik.http.services.rompatcherjs.loadbalancer.server.port=3314" 
 networks:
   default:
-    name: caddy_net
+    name: internal
     external: true
