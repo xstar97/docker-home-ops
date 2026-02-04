@@ -12,7 +12,7 @@ services:
     image: ghcr.io/trugamr/wol:0.1.0
     container_name: wol
     command: serve
-    network_mode: host
+    network_mode: host  # Uses host network
     restart: on-failure
     # healthcheck: *healthcheck
     environment:
@@ -26,9 +26,9 @@ services:
         ping:
           privileged: false
     labels:
-      - "traefik.enable=false"
+      - "traefik.enable=true"  # Enable routing
       - "traefik.http.routers.wol.rule=Host(`wol.${BASE_DOMAIN}`)"
-      - "traefik.http.services.wol.loadbalancer.server.port=7777" 
+      - "traefik.http.services.wol.loadbalancer.server.port=7777"  # Expose port directly
       - wud.tag.include=^\d+\.\d+\.\d+$
 networks:
   default:
