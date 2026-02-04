@@ -4,8 +4,9 @@ services:
     image: traefik:v3.6.7
     container_name: traefik
     restart: on-failure
-    # environment:
-    #   - BASE_DOMAIN=${BASE_DOMAIN}
+    environment:
+       - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
+       - BASE_DOMAIN=${BASE_DOMAIN}
     command:
       - --certificatesresolvers.cf.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.cf.acme.dnsChallenge.delayBeforeCheck=0
