@@ -11,7 +11,7 @@ services:
       - 3000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${DOCKER_DATA_DIR}/dockhand/data:/app/data
+      - /home/xstar97/docker/data/dockhand/data:/app/data
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.dockhand.rule=Host(`dockhand.${BASE_DOMAIN}`)"
