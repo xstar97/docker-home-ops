@@ -39,7 +39,6 @@ services:
   wol-health:
     image: curlimages/curl:8.18.0
     container_name: wol-health
-    network_mode: host
     restart: unless-stopped
     depends_on:
       - wol
