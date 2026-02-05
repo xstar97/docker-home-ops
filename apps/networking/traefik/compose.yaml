@@ -32,8 +32,9 @@ services:
       - --providers.docker.exposedByDefault=false
       - "--log.level=DEBUG"  # Set log level to DEBUG
       - "--accesslog=true"   # Enable access logs to stdout
-      - "--api.insecure=true"  # Enable the Traefik dashboard without authentication
-      - "--ping=true"
+      - "--api.insecure=true"
+      - --ping=true
+      - --ping
     ports:
       - 80:80
       - 443:443
