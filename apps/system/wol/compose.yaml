@@ -1,7 +1,5 @@
 x-healthcheck: &healthcheck
-  disable: true
-  test:
-    ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:2019/metrics"]
+  test: ["CMD-SHELL", "curl -fs -o /dev/null http://localhost:7777"]
   interval: 30s
   timeout: 10s
   retries: 3
@@ -36,11 +34,22 @@ services:
       - "traefik.http.services.wol.loadbalancer.server.url=http://${SEB_IP}:7777"
       # Optional middleware
       - "traefik.http.routers.wol.middlewares=error-pages-middleware"
-
+      # WUD
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$"
+  wol-health:
+    image: curlimages/curl:8.18.0
+    container_name: wol-health
+    network_mode: host
+    restart: unless-stopped
+    depends_on:
+      - wol
+    healthcheck: *healthcheck
+    command: ["sleep", "infinity"]
+    labels:
       # WUD
       - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$"
 
 networks:
   default:
-    name: caddy_net
+    name: internal
     external: true
