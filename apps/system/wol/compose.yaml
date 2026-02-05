@@ -1,5 +1,5 @@
 x-healthcheck: &healthcheck
-  test: ["/usr/local/bin/wol", "version"]
+  test: ["CMD","/usr/local/bin/wol", "version"]
   interval: 30s
   timeout: 10s
   retries: 3
