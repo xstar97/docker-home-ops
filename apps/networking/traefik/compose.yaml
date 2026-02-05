@@ -1,3 +1,10 @@
+x-healthcheck: &healthcheck
+  test: curl -f http://localhost:8080/pinf || exit 1
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 15s
+
 services:
   traefik:
     image: traefik:3.6.7
@@ -6,6 +13,7 @@ services:
     environment:
       - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
       - BASE_DOMAIN=${BASE_DOMAIN}
+    healthcheck: *healthcheck
     command:
       - --certificatesresolvers.cf.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.cf.acme.dnsChallenge.delayBeforeCheck=0
@@ -24,6 +32,7 @@ services:
       - "--log.level=DEBUG"  # Set log level to DEBUG
       - "--accesslog=true"   # Enable access logs to stdout
       - "--api.insecure=true"  # Enable the Traefik dashboard without authentication
+      - "--ping=true"
     ports:
       - 80:80
       - 443:443
