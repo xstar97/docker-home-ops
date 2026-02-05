@@ -12,7 +12,7 @@ services:
     restart: unless-stopped
     ports:
       - 6969
-    healthcheck: *healthcheck
+    #healthcheck: *healthcheck
     environment:
       - PORT=6969
     labels:
