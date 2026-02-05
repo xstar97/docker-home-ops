@@ -33,7 +33,7 @@ services:
       - "--log.level=DEBUG"  # Set log level to DEBUG
       - "--accesslog=true"   # Enable access logs to stdout
       - "--api.insecure=true"
-      - --ping=true
+      # - --ping=true
       - --ping
     ports:
       - 80:80
