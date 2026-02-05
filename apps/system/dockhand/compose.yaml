@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:16-alpine
+    image: postgres:18-alpine
     volumes:
       - ${DOCKER_DATA_DIR}/dockhand/db:/var/lib/postgresql/data
     labels:
