@@ -1,10 +1,10 @@
 services:
-  postgres:
-    image: postgres:16-alpine
-    volumes:
-      - /home/xstar97/docker/data/dockhand/db:/var/lib/postgresql/data
-    labels:
-      - wud.tag.include=^\d+\.\d+\.\d+$
+  # postgres:
+    # image: postgres:16-alpine
+    # volumes:
+    #   - /home/xstar97/docker/data/dockhand/db:/var/lib/postgresql/data
+    # labels:
+    #   - wud.tag.include=^\d+\.\d+\.\d+$
   dockhand:
     image: fnsys/dockhand:v1.0.14
     ports:
@@ -21,8 +21,8 @@ services:
       - "traefik.http.routers.dockhand.tls.certResolver=cf"
       - "traefik.http.routers.dockhand.middlewares=error-pages-middleware"
       - wud.tag.include=^\d+\.\d+\.\d+$
-    depends_on:
-      - postgres
+    # depends_on:
+    #   - postgres
 networks:
   default:
     name: internal
