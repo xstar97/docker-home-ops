@@ -7,8 +7,8 @@ x-healthcheck: &healthcheck
 
 services:
   wol:
-    image: ghcr.io/trugamr/wol:0.1.0
     container_name: wol
+    image: ghcr.io/trugamr/wol:0.1.0
     command: serve
     network_mode: host
     restart: on-failure
@@ -37,8 +37,8 @@ services:
       # WUD
       - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$"
   wol-health:
-    image: curlimages/curl:8.18.0
     container_name: wol-health
+    image: curlimages/curl:8.18.0
     restart: unless-stopped
     depends_on:
       - wol
