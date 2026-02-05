@@ -1,5 +1,5 @@
 x-healthcheck: &healthcheck
-  test: curl -f http://localhost:8080/health || exit 1
+  test: curl -fs http://localhost:8080/healthz | grep -E '\"status\"[[:space:]]*:[[:space:]]*\"(alive|expired)\"' >/dev/null
   interval: 30s
   timeout: 10s
   retries: 3
@@ -12,7 +12,7 @@ services:
     restart: on-failure
     ports:
       - 8080
-    # healthcheck: *healthcheck
+    healthcheck: *healthcheck
     volumes:
       - /home/xstar97/docker/data/code:/home/coder/.config
       - /home/xstar97/docker:/config
