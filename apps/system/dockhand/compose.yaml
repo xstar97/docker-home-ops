@@ -2,7 +2,7 @@ services:
   postgres:
     image: postgres:16-alpine
     volumes:
-      - ${DOCKER_DATA_DIR}/dockhand/db:/var/lib/postgresql/data
+      - /home/xstar97/docker/data/dockhand/db:/var/lib/postgresql/data
     labels:
       - wud.tag.include=^\d+\.\d+\.\d+$
   dockhand:
