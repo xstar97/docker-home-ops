@@ -1,5 +1,5 @@
 x-healthcheck: &healthcheck
-  test: ["CMD-SHELL", "curl -fs -o /dev/null http://localhost:7777"]
+  test: ["/usr/local/bin/wol", "version"]
   interval: 30s
   timeout: 10s
   retries: 3
@@ -12,6 +12,7 @@ services:
     command: serve
     network_mode: host
     restart: on-failure
+    healthcheck: *healthcheck
     environment:
       WOL_CONFIG: |
         machines:
@@ -34,17 +35,6 @@ services:
       - "traefik.http.services.wol.loadbalancer.server.url=http://${SEB_IP}:7777"
       # Optional middleware
       - "traefik.http.routers.wol.middlewares=error-pages-middleware"
-      # WUD
-      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$"
-  wol-health:
-    container_name: wol-health
-    image: curlimages/curl:8.18.0
-    restart: unless-stopped
-    depends_on:
-      - wol
-    healthcheck: *healthcheck
-    command: ["sleep", "infinity"]
-    labels:
       # WUD
       - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$"
 
