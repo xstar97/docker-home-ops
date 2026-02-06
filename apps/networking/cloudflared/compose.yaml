@@ -7,7 +7,7 @@ x-healthcheck: &healthcheck
 
 services:
   cloudflared:
-    image: cloudflare/cloudflared:2026.1.2
+    image: cloudflare/cloudflared:2026.2.0
     container_name: cloudflared
     restart: on-failure
     command: tunnel --no-autoupdate --metrics 127.0.0.1:8080 run --token ${TUNNEL_TOKEN}
