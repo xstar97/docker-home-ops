@@ -1,7 +1,7 @@
 ARG GATUS_VERSION=v5.34.0
 
 # Stage 1: grab + verify tools
-FROM alpine:3.20 AS tools
+FROM alpine:3.23 AS tools
 RUN apk add --no-cache wget curl \
  && command -v wget >/dev/null \
  && command -v curl >/dev/null
