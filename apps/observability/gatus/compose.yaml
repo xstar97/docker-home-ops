@@ -11,14 +11,19 @@ x-healthcheck: &healthcheck
 
 services:
   gatus:
-    image: ghcr.io/twin/gatus:v5.34.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        GATUS_VERSION: v5.34.0
+    image: gatus-custom:v5.34.0
     container_name: gatus
     restart: on-failure
     environment:
       - GATUS_CONFIG_PATH=/config
     ports:
       - 8080
-    healthcheck: *healthcheck
+    # healthcheck: *healthcheck
     volumes:
       - /home/xstar97/docker/data/gatus/config:/config
       - /home/xstar97/docker/data/gatus/data:/data
