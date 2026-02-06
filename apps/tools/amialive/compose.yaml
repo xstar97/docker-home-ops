@@ -1,5 +1,5 @@
 x-healthcheck: &healthcheck
-  test: ["CMD","/usr/bin/httpcheck","-t","5","http://localhost:6969/healthz"]
+  test: ["CMD","/usr/bin/httpcheck","-t","5","http://localhost:6969/health"]
   interval: 30s
   timeout: 10s
   retries: 3
