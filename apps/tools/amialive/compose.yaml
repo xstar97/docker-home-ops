@@ -1,5 +1,5 @@
 x-healthcheck: &healthcheck
-  test: ["CMD", "wget", "-qO-", "http://localhost:6969/healthz >/dev/null || exit 1"]
+  test: ["CMD","/usr/bin/httpcheck","-t","5","http://localhost:6969/healthz"]
   interval: 30s
   timeout: 10s
   retries: 3
@@ -12,7 +12,7 @@ services:
     restart: unless-stopped
     ports:
       - 6969
-    #healthcheck: *healthcheck
+    healthcheck: *healthcheck
     environment:
       - PORT=6969
     labels:
