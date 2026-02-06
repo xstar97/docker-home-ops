@@ -19,7 +19,7 @@ services:
       dockerfile: Dockerfile
       args:
         GATUS_VERSION: v5.34.0
-        MC_VERSION: v1.3.0
+        MC_VERSION: 1.3.0
     image: gatus-custom:v5.34.0
     container_name: gatus
     restart: on-failure
