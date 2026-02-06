@@ -1,14 +1,11 @@
 ARG GATUS_VERSION=v5.34.0
+ARG MC_VERSION=v1.0.1
 
-# Stage 1: grab + verify tools
-FROM alpine:3.20 AS tools
-RUN apk add --no-cache wget curl \
- && command -v wget >/dev/null \
- && command -v curl >/dev/null
+# Stage 1: microcheck binaries
+FROM ghcr.io/tarampampam/microcheck:${MC_VERSION} AS microcheck
 
-# Stage 2: distroless runtime
+# Stage 2: distroless gatus runtime
 FROM ghcr.io/twin/gatus:${GATUS_VERSION}
 
-# Copy binaries
-COPY --from=tools /usr/bin/wget /usr/bin/wget
-COPY --from=tools /usr/bin/curl /usr/bin/curl
+# Copy only the HTTP checker
+COPY --from=microcheck /bin/httpcheck /usr/bin/httpcheck

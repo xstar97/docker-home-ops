@@ -1,8 +1,14 @@
 x-healthcheck: &healthcheck
   test:
     [
-      "CMD-SHELL",
-      "curl http://localhost:8080/health | grep -qx '{\"status\":\"UP\"}'"
+      "CMD",
+      "/usr/bin/httpcheck",
+      "--url",
+      "http://localhost:8080/health",
+      "--expect-status",
+      "200",
+      "--expect-body",
+      "{\"status\":\"UP\"}"
     ]
   interval: 30s
   timeout: 10s
