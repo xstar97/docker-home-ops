@@ -3,12 +3,9 @@ x-healthcheck: &healthcheck
     [
       "CMD",
       "/usr/bin/httpcheck",
-      "--url",
-      "http://localhost:8080/health",
-      "--expect-status",
-      "200",
-      "--expect-body",
-      "{\"status\":\"UP\"}"
+      "-t",
+      "5",
+      "http://localhost:8080/health"
     ]
   interval: 30s
   timeout: 10s
@@ -22,7 +19,7 @@ services:
       dockerfile: Dockerfile
       args:
         GATUS_VERSION: v5.34.0
-        MC_VERSION: latest # Use the latest version of microcheck
+        MC_VERSION: v1.3.0
     image: gatus-custom:v5.34.0
     container_name: gatus
     restart: on-failure
