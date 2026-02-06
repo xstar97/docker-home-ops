@@ -8,7 +8,7 @@ x-healthcheck: &healthcheck
 services:
   amialive:
     container_name: amialive
-    image: ghcr.io/xstar97/amialive:0.0.1@sha256:6259042b89c3de980c2fb817b2d649e4979417fc78d071bcd60af29037c1d8e3
+    image: ghcr.io/xstar97/amialive:0.0.2@sha256:c7a3f2f8c93a76ab2cdf525c99b99a88710109d8699b4969a97103929605946f
     restart: unless-stopped
     ports:
       - 6969
