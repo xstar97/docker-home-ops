@@ -23,7 +23,7 @@ services:
       - GATUS_CONFIG_PATH=/config
     ports:
       - 8080
-    # healthcheck: *healthcheck
+    healthcheck: *healthcheck
     volumes:
       - /home/xstar97/docker/data/gatus/config:/config
       - /home/xstar97/docker/data/gatus/data:/data
