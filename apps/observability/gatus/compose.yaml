@@ -22,6 +22,7 @@ services:
       dockerfile: Dockerfile
       args:
         GATUS_VERSION: v5.34.0
+        MC_VERSION: latest # Use the latest version of microcheck
     image: gatus-custom:v5.34.0
     container_name: gatus
     restart: on-failure
