@@ -1,9 +1,15 @@
 ARG GATUS_VERSION=v5.34.0
-FROM ghcr.io/twin/gatus:${GATUS_VERSION}
 
-# Install wget + curl (image is alpine-based)
+# Stage 1: grab tools from Alpine
+FROM alpine:3.20 AS tools
 RUN apk add --no-cache \
     wget \
     curl
 
-# Nothing else changes – keep original entrypoint/cmd
+# Stage 2: real runtime image (distroless gatus)
+FROM ghcr.io/twin/gatus:${GATUS_VERSION}
+
+# Copy binaries + required certs
+COPY --from=tools /usr/bin/wget /usr/bin/wget
+COPY --from=tools /usr/bin/curl /usr/bin/curl
+COPY --from=tools /etc/ssl/certs /etc/ssl/certs
