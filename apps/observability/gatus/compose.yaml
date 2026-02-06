@@ -1,5 +1,9 @@
 x-healthcheck: &healthcheck
-  test: ["CMD-SHELL", "curl -fs http://localhost:8080/health | grep -qx '{\"status\":\"UP\"}'"]
+  test:
+    [
+      "CMD-SHELL",
+      "wget -qO- http://localhost:8080/health | grep -qx '{\"status\":\"UP\"}'"
+    ]
   interval: 30s
   timeout: 10s
   retries: 3
