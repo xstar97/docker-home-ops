@@ -1,15 +1,14 @@
 ARG GATUS_VERSION=v5.34.0
 
-# Stage 1: grab tools from Alpine
+# Stage 1: grab + verify tools
 FROM alpine:3.20 AS tools
-RUN apk add --no-cache \
-    wget \
-    curl
+RUN apk add --no-cache wget curl \
+ && command -v wget >/dev/null \
+ && command -v curl >/dev/null
 
-# Stage 2: real runtime image (distroless gatus)
+# Stage 2: distroless runtime
 FROM ghcr.io/twin/gatus:${GATUS_VERSION}
 
-# Copy binaries + required certs
+# Copy binaries
 COPY --from=tools /usr/bin/wget /usr/bin/wget
 COPY --from=tools /usr/bin/curl /usr/bin/curl
-COPY --from=tools /etc/ssl/certs /etc/ssl/certs
