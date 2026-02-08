@@ -10,6 +10,8 @@ services:
     image: ghcr.io/gotify/server:2.8.0
     container_name: gotify
     restart: on-failure
+    networks:
+      - network_internal
     ports:
       - 8080
     healthcheck: *healthcheck
@@ -35,6 +37,7 @@ services:
       - homepage.description=Alert service
       - wud.tag.include=^\d+\.\d+\.\d+$$
 networks:
-  default:
-    name: internal
+  network_internal:
     external: true
+  internal:
+    driver: bridge

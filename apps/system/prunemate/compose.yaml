@@ -19,6 +19,8 @@ services:
     restart: on-failure
     environment:
       - PRUNEMATE_TIME_24H=true
+    networks:
+      - network_internal
     ports:
       - 8080
     healthcheck: *healthcheck
@@ -34,8 +36,9 @@ services:
       - "traefik.http.routers.prunemate.tls=true"
       - "traefik.http.routers.prunemate.tls.certResolver=cf"
       - "traefik.http.routers.prunemate.middlewares=error-pages-middleware"
-      - wud.tag.include=^\d+\.\d+\.\d+$$
+      - wud.tag.include=^\d+\.\d+\.\d+$
 networks:
-  default:
-    name: internal
+  network_internal:
     external: true
+  internal:
+    driver: bridge

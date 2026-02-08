@@ -10,6 +10,8 @@ services:
     container_name: amialive
     image: ghcr.io/xstar97/amialive:0.0.3
     restart: unless-stopped
+    networks:
+      - network_internal
     ports:
       - 6969
     healthcheck: *healthcheck
@@ -23,7 +25,9 @@ services:
       - "traefik.http.routers.amialive.tls=true"
       - "traefik.http.routers.amialive.tls.certResolver=cf"
       - "traefik.http.routers.amialive.middlewares=error-pages-middleware"
+      - wud.tag.include=^\d+\.\d+\.\d+$
 networks:
-  default:
-    name: internal
+  network_internal:
     external: true
+  internal:
+    driver: bridge

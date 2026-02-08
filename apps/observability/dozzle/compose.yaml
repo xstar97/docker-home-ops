@@ -15,6 +15,8 @@ services:
       - DOZZLE_ENABLE_ACTIONS=true
       - DOZZLE_ENABLE_SHELL=true
       - DOZZLE_NO_ANALYTICS=true
+    networks:
+      - network_internal
     ports:
       - 8080
     healthcheck: *healthcheck
@@ -28,8 +30,9 @@ services:
       - "traefik.http.routers.dozzle.tls=true"
       - "traefik.http.routers.dozzle.tls.certResolver=cf"
       - "traefik.http.routers.dozzle.middlewares=error-pages-middleware"
-      - wud.tag.include=^\d+\.\d+\.\d+$$
+      - wud.tag.include=^\d+\.\d+\.\d+$
 networks:
-  default:
-    name: internal
+  network_internal:
     external: true
+  internal:
+    driver: bridge

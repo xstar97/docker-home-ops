@@ -18,6 +18,8 @@ services:
     restart: on-failure
     environment:
       - GATUS_CONFIG_PATH=/config
+    networks:
+      - network_internal
     ports:
       - 8080
     healthcheck: *healthcheck
@@ -40,6 +42,7 @@ services:
       - homepage.widget.url=http://gatus:8080
       - homepage.description=Status Page
 networks:
-  default:
-    name: internal
+  network_internal:
     external: true
+  internal:
+    driver: bridge

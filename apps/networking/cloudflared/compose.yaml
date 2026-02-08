@@ -11,6 +11,8 @@ services:
     container_name: cloudflared
     restart: on-failure
     command: tunnel --no-autoupdate --metrics 127.0.0.1:8080 run --token ${TUNNEL_TOKEN}
+    networks:
+      - network_internal
     ports:
       # metrics
       - "8080" 
@@ -25,6 +27,7 @@ services:
       - homepage.widget.accountid=${ACCOUNT_ID}
       - homepage.widget.key=${CF_KEY_TOKEN}
 networks:
-  default:
-    name: internal
+  network_internal:
     external: true
+  internal:
+    driver: bridge

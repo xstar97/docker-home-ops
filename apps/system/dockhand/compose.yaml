@@ -1,6 +1,8 @@
 services:
   # postgres:
     # image: postgres:16-alpine
+    # networks:
+    #   - internal # Assign to the custom network
     # volumes:
     #   - /home/xstar97/docker/data/dockhand/db:/var/lib/postgresql/data
     # labels:
@@ -8,6 +10,9 @@ services:
   dockhand:
     container_name: dockhand
     image: fnsys/dockhand:v1.0.14
+    restart: on-failure
+    networks:
+      - network_internal
     ports:
       - 3000:3000
     volumes:
@@ -25,6 +30,7 @@ services:
     # depends_on:
     #   - postgres
 networks:
-  default:
-    name: internal
+  network_internal:
     external: true
+  internal:
+    driver: bridge

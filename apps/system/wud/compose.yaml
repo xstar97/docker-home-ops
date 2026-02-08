@@ -14,6 +14,8 @@ services:
     restart: on-failure
     environment:
       - WUD_SERVER_PORT=3000
+    networks:
+      - network_internal
     ports:
       - 3000
     # healthcheck: *healthcheck
@@ -30,6 +32,7 @@ services:
       - wud.tag.include=^\d+\.\d+\.\d+$$
       - wud.link.template=https://github.com/getwud/wud/releases/tag/$${major}.$${minor}.$${patch}
 networks:
-  default:
-    name: internal
+  network_internal:
     external: true
+  internal:
+    driver: bridge

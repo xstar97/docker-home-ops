@@ -10,6 +10,8 @@ services:
     image: ghcr.io/coder/code-server:4.108.2
     container_name: code
     restart: on-failure
+    networks:
+      - network_internal
     ports:
       - 8080
     healthcheck: *healthcheck
@@ -24,8 +26,9 @@ services:
       - "traefik.http.routers.code.tls=true"
       - "traefik.http.routers.code.tls.certResolver=cf"
       - "traefik.http.routers.code.middlewares=error-pages-middleware"
-      - wud.tag.include=^\d+\.\d+\.\d+$$
+      - wud.tag.include=^\d+\.\d+\.\d+$
 networks:
-  default:
-    name: internal
+  network_internal:
     external: true
+  internal:
+    driver: bridge
