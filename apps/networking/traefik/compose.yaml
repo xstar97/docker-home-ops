@@ -36,6 +36,7 @@ services:
       - --ping
     networks:
       - network_internal
+      - internal
     ports:
       - 80:80
       - 443:443
@@ -64,6 +65,8 @@ services:
   error-pages:
     container_name: error-pages
     image: ghcr.io/tarampampam/error-pages:3.8.0 # using the latest tag is highly discouraged
+    networks:
+      - internal
     environment:
       TEMPLATE_NAME: app-down # set the error pages template
     labels:
@@ -80,9 +83,7 @@ services:
       traefik.http.middlewares.error-pages-middleware.errors.query: /{status}.html
       # define service properties
       traefik.http.services.error-pages-service.loadbalancer.server.port: 8080
-      wud.tag.include: ^\d+\.\d+\.\d+$$
-    networks:
-      - internal
+      wud.tag.include: ^\d+\.\d+\.\d+$
 networks:
   network_internal:
     external: true
