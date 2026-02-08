@@ -7,7 +7,7 @@ services:
     #   - wud.tag.include=^\d+\.\d+\.\d+$
   dockhand:
     container_name: dockhand
-    image: fnsys/dockhand:v1.0.14
+    image: fnsys/dockhand:v1.0.15
     ports:
       - 3000:3000
     volumes:
