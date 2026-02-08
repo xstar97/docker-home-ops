@@ -17,7 +17,7 @@ services:
       - network_internal
     ports:
       - 3000
-    healthcheck: *healthcheck
+    # healthcheck: *healthcheck
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
