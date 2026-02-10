@@ -19,7 +19,7 @@ services:
     healthcheck: *healthcheck
     labels:
       - wud.tag.include=^\d+\.\d+\.\d+$$
-      - homepage.group=Core
+      - homepage.group=Networking
       - homepage.name=CloudFlared
       - homepage.icon=cloudflare.png
       - homepage.widget.type=cloudflared

@@ -52,7 +52,7 @@ services:
       - "traefik.http.routers.traefik.tls=true"
       - "traefik.http.routers.traefik.tls.certResolver=cf"
       - "traefik.http.routers.traefik.middlewares=error-pages-middleware"
-      - homepage.group=Core
+      - homepage.group=Networking
       - homepage.name=Traefik
       - homepage.icon=traefik.png
       - homepage.href=${HP_REF}
