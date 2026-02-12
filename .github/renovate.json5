@@ -1,0 +1,7 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "github>xstar97/docker-home-ops//.github/renovate/traefik.json5",
+  ]
+}
