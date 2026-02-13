@@ -7,7 +7,7 @@ x-healthcheck: &healthcheck
 
 services:
   code-server:
-    image: ghcr.io/coder/code-server:4.108.2
+    image: ghcr.io/coder/code-server:4.109.2
     container_name: code
     restart: on-failure
     networks:
