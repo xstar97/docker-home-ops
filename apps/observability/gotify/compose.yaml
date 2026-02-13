@@ -7,7 +7,7 @@ x-healthcheck: &healthcheck
 
 services:
   gotify:
-    image: ghcr.io/gotify/server:2.8.0
+    image: ghcr.io/gotify/server:2.9.0
     container_name: gotify
     restart: on-failure
     networks:
