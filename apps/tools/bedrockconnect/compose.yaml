@@ -5,6 +5,7 @@ services:
     restart: unless-stopped
     ports:
       - "19132:19132/udp"
+    network_mode: host
     volumes:
       - /home/xstar97/docker/data/bedrockconnect/config/custom_servers.json:/app/custom_servers.json
 networks:
