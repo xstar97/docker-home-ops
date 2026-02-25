@@ -33,18 +33,8 @@ services:
           privileged: false
 
     labels:
-      - "traefik.enable=true"
-      # Router
-      - "traefik.http.routers.wol.rule=Host(`wol.${BASE_DOMAIN}`)"
-      - "traefik.http.routers.wol.entrypoints=websecure"
-      - "traefik.http.routers.wol.tls=true"
-      - "traefik.http.routers.wol.tls.certresolver=cf"
-      # Service: explicitly tell Traefik where the host-network service lives
-      - "traefik.http.services.wol.loadbalancer.server.url=http://${SEB_IP}:7777"
-      # Optional middleware
-      - "traefik.http.routers.wol.middlewares=error-pages-middleware"
-      # WUD
-      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$"
+      traefik.enable: true
+      wud.tag.include: ^\d+\.\d+\.\d+$
 networks:
   network_internal:
     external: true

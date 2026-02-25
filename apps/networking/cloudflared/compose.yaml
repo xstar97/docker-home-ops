@@ -18,14 +18,14 @@ services:
       - "8080" 
     healthcheck: *healthcheck
     labels:
-      - wud.tag.include=^\d+\.\d+\.\d+$$
-      - homepage.group=Networking
-      - homepage.name=CloudFlared
-      - homepage.icon=cloudflare.png
-      - homepage.widget.type=cloudflared
-      - homepage.widget.tunnelid=${TUNNEL_ID}
-      - homepage.widget.accountid=${ACCOUNT_ID}
-      - homepage.widget.key=${CF_KEY_TOKEN}
+      wud.tag.include: ^\d+\.\d+\.\d+$
+      homepage.group: Networking
+      homepage.name: CloudFlared
+      homepage.icon: cloudflare.png
+      homepage.widget.type: cloudflared
+      homepage.widget.tunnelid: ${TUNNEL_ID}
+      homepage.widget.accountid: ${ACCOUNT_ID}
+      homepage.widget.key: ${CF_KEY_TOKEN}
 networks:
   network_internal:
     external: true

@@ -10,30 +10,29 @@ services:
     image: traefik:3.6.8
     container_name: traefik
     restart: on-failure
-    environment:
-      - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
-      - BASE_DOMAIN=${BASE_DOMAIN}
     healthcheck: *healthcheck
     command:
+      # ACME / Cloudflare
       - --certificatesresolvers.cf.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
-      - --certificatesresolvers.cf.acme.dnsChallenge.delayBeforeCheck=0
-      - --certificatesresolvers.cf.acme.dnsChallenge.provider=cloudflare
-      - --certificatesresolvers.cf.acme.dnsChallenge.resolvers=1.1.1.1:53
+      - --certificatesresolvers.cf.acme.dnschallenge.provider=cloudflare
       - --certificatesresolvers.cf.acme.storage=/certs/acme.json
-      - --entryPoints.web.address=:80
-      - --entryPoints.web.http.redirections.entryPoint.scheme=https
-      - --entryPoints.web.http.redirections.entryPoint.to=websecure
-      - --entryPoints.websecure.address=:443
+      # EntryPoints
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.websecure.address=:443
       - --entrypoints.websecure.http.tls=true
-      - --entrypoints.websecure.http.tls.certResolver=cf
-      - --entrypoints.websecure.http.tls.domains[0].main=*.${BASE_DOMAIN}
+      - --entrypoints.websecure.http.tls.certresolver=cf
+      # 🔥 GLOBAL DEFAULT MIDDLEWARE
+      - --entrypoints.websecure.http.middlewares=error-pages-middleware@docker
+      # Docker Provider
       - --providers.docker=true
-      - --providers.docker.exposedByDefault=false
-      - "--log.level=DEBUG"  # Set log level to DEBUG
-      - "--accesslog=true"   # Enable access logs to stdout
-      - "--api.insecure=true"
-      # - --ping=true
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.defaultRule=Host(`{{ normalize .Name }}.{{ env "BASE_DOMAIN" }}`)
+      # Misc
+      - --api.insecure=true
       - --ping
+      - --log.level=DEBUG
+      - --accesslog=true
     networks:
       - network_internal
       - internal
@@ -45,45 +44,31 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /home/xstar97/docker/data/traefik/certs:/certs
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.traefik.rule=Host(`traefik.${BASE_DOMAIN}`)"  # Expose dashboard
-      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
-      - "traefik.http.routers.traefik.entrypoints=websecure"
-      - "traefik.http.routers.traefik.tls=true"
-      - "traefik.http.routers.traefik.tls.certResolver=cf"
-      - "traefik.http.routers.traefik.middlewares=error-pages-middleware"
-      - homepage.group=Networking
-      - homepage.name=Traefik
-      - homepage.icon=traefik.png
-      - homepage.href=${HP_REF}
-      - homepage.widget.type=traefik
-      - homepage.widget.url=${HP_WIDGET_URL}
-      - homepage.description=Traefik dashboard
-      - wud.tag.include=^\d+\.\d+\.\d+$$
+      traefik.enable: "true"
+      traefik.http.services.traefik.loadbalancer.server.port: "8080"
     depends_on:
-      error-pages: {condition: service_healthy}
+      error-pages:
+        condition: service_started
   error-pages:
     container_name: error-pages
-    image: ghcr.io/tarampampam/error-pages:3.8.0 # using the latest tag is highly discouraged
+    image: ghcr.io/tarampampam/error-pages:3.8.0
     networks:
       - internal
     environment:
-      TEMPLATE_NAME: app-down # set the error pages template
+      TEMPLATE_NAME: app-down
     labels:
-      traefik.enable: true
-      # use as "fallback" for any NON-registered services (with priority below normal)
+      traefik.enable: "true"
+      # Catch-all router (low priority)
       traefik.http.routers.error-pages-router.rule: HostRegexp(`.+`)
       traefik.http.routers.error-pages-router.priority: 10
-      # should say that all of your services work on https
-      traefik.http.routers.error-pages-router.entrypoints: web
-      traefik.http.routers.error-pages-router.middlewares: error-pages-middleware
-      # "errors" middleware settings
+      traefik.http.routers.error-pages-router.entrypoints: websecure
+      # Define middleware
       traefik.http.middlewares.error-pages-middleware.errors.status: 400-599
       traefik.http.middlewares.error-pages-middleware.errors.service: error-pages-service
       traefik.http.middlewares.error-pages-middleware.errors.query: /{status}.html
-      # define service properties
+      # Service
       traefik.http.services.error-pages-service.loadbalancer.server.port: 8080
-      wud.tag.include: ^\d+\.\d+\.\d+$
+
 networks:
   network_internal:
     external: true

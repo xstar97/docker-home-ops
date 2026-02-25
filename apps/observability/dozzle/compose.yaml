@@ -11,10 +11,10 @@ services:
     container_name: dozzle
     restart: on-failure
     environment:
-      - DOZZLE_ADDR=:8080
-      - DOZZLE_ENABLE_ACTIONS=true
-      - DOZZLE_ENABLE_SHELL=true
-      - DOZZLE_NO_ANALYTICS=true
+      DOZZLE_ADDR: :8080
+      DOZZLE_ENABLE_ACTIONS: true
+      DOZZLE_ENABLE_SHELL: true
+      DOZZLE_NO_ANALYTICS: true
     networks:
       - network_internal
     ports:
@@ -23,14 +23,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.dozzle.rule=Host(`dozzle.${BASE_DOMAIN}`)"
-      - "traefik.http.services.dozzle.loadbalancer.server.port=8080"
-      - "traefik.http.routers.dozzle.entrypoints=websecure"
-      - "traefik.http.routers.dozzle.tls=true"
-      - "traefik.http.routers.dozzle.tls.certResolver=cf"
-      - "traefik.http.routers.dozzle.middlewares=error-pages-middleware"
-      - wud.tag.include=^\d+\.\d+\.\d+$
+      traefik.enable: true
+      wud.tag.include: ^\d+\.\d+\.\d+$
 networks:
   network_internal:
     external: true

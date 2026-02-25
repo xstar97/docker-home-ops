@@ -18,7 +18,7 @@ services:
     container_name: prunemate
     restart: on-failure
     environment:
-      - PRUNEMATE_TIME_24H=true
+      PRUNEMATE_TIME_24H: true
     networks:
       - network_internal
     ports:
@@ -29,14 +29,8 @@ services:
       - /home/xstar97/docker/data/prunemate/config:/config
       - /home/xstar97/docker/data/prunemate/logs:/var/log
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.prunemate.rule=Host(`prunemate.${BASE_DOMAIN}`)"
-      - "traefik.http.services.prunemate.loadbalancer.server.port=8080"
-      - "traefik.http.routers.prunemate.entrypoints=websecure"
-      - "traefik.http.routers.prunemate.tls=true"
-      - "traefik.http.routers.prunemate.tls.certResolver=cf"
-      - "traefik.http.routers.prunemate.middlewares=error-pages-middleware"
-      - wud.tag.include=^\d+\.\d+\.\d+$
+      traefik.enable: true
+      wud.tag.include: ^\d+\.\d+\.\d+$
 networks:
   network_internal:
     external: true

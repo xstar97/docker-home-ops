@@ -11,7 +11,7 @@ services:
     container_name: drydock
     restart: on-failure
     environment:
-      - DD_SERVER_TRUSTPROXY=1
+      DD_SERVER_TRUSTPROXY: 1
     networks:
       - network_internal
     ports:
@@ -20,15 +20,9 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.drydock.rule=Host(`drydock.${BASE_DOMAIN}`)"
-      - "traefik.http.services.drydock.loadbalancer.server.port=3000"
-      - "traefik.http.routers.drydock.entrypoints=websecure"
-      - "traefik.http.routers.drydock.tls=true"
-      - "traefik.http.routers.drydock.tls.certResolver=cf"
-      - "traefik.http.routers.drydock.middlewares=error-pages-middleware"
-      - drydock.tag.include=^\d+\.\d+\.\d+$
-      - drydock.link.template=https://github.com/getdrydock/drydock/releases/tag/$${major}.$${minor}.$${patch}
+      traefik.enable: true
+      drydock.tag.include: ^\d+\.\d+\.\d+$
+      drydock.link.template: https://github.com/getdrydock/drydock/releases/tag/$${major}.$${minor}.$${patch}
 networks:
   network_internal:
     external: true
