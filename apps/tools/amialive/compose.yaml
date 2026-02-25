@@ -19,6 +19,12 @@ services:
       PORT: 6969
     labels:
       traefik.enable: true
+      traefik.http.routers.amialive.rule: Host(`amialive.${BASE_DOMAIN}`)
+      traefik.http.services.amialive.loadbalancer.server.port: 6969
+      traefik.http.routers.amialive.entrypoints: websecure
+      traefik.http.routers.amialive.tls: true
+      traefik.http.routers.amialive.tls.certResolver: cf
+      traefik.http.routers.amialive.middlewares: error-pages-middleware
       wud.tag.include: ^\d+\.\d+\.\d+$
 networks:
   network_internal:

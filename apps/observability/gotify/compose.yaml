@@ -19,6 +19,12 @@ services:
       - /home/xstar97/docker/data/gotify/data:/app/data
     labels:
       traefik.enable: true
+      traefik.http.routers.gotify.rule: Host(`gotify.${BASE_DOMAIN}`)
+      traefik.http.services.gotify.loadbalancer.server.port: 3314
+      traefik.http.routers.gotify.entrypoints: websecure
+      traefik.http.routers.gotify.tls: true
+      traefik.http.routers.gotify.tls.certResolver: cf
+      traefik.http.routers.gotify.middlewares: error-pages-middleware
       homepage.group: Core
       homepage.name: Gotify
       homepage.icon: gotify.png

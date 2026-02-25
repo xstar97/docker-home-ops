@@ -28,6 +28,12 @@ services:
       - /home/xstar97/docker/data/gatus/data:/data
     labels:
       traefik.enable: true
+      traefik.http.routers.gatus.rule: Host(`gatus.${BASE_DOMAIN}`)
+      traefik.http.services.gatus.loadbalancer.server.port: 8080
+      traefik.http.routers.gatus.entrypoints: websecure
+      traefik.http.routers.gatus.tls: true
+      traefik.http.routers.gatus.tls.certResolver: cf
+      traefik.http.routers.gatus.middlewares: error-pages-middleware
       homepage.group: Core
       homepage.name: Gatus
       homepage.icon: gatus.png

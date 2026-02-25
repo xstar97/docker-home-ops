@@ -10,9 +10,6 @@ services:
     image: traefik:3.6.8
     container_name: traefik
     restart: on-failure
-    environment:
-      - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
-      - BASE_DOMAIN=${BASE_DOMAIN}
     healthcheck: *healthcheck
     command:
       - --certificatesresolvers.cf.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
@@ -28,17 +25,9 @@ services:
       - --entrypoints.websecure.http.tls.certResolver=cf
       - --entrypoints.websecure.http.tls.domains[0].main=*.${BASE_DOMAIN}
       - --providers.docker=true
-      - --providers.docker.exposedbydefault=true
-      - --providers.docker.defaultRule=Host(`{{ .Name }}.${BASE_DOMAIN}`)
-      - --providers.docker.watch=true
-      - --providers.docker.network=network_internal
-      # Default middleware for all services
-      - --entryPoints.web.http.middlewares=error-pages-middleware
-      - --entryPoints.websecure.http.middlewares=error-pages-middleware
-      # Default TLS for websecure
-      - --entrypoints.websecure.http.tls.certResolver=cf
-      - "--log.level=DEBUG"
-      - "--accesslog=true"
+      - --providers.docker.exposedByDefault=false
+      - "--log.level=DEBUG"  # Set log level to DEBUG
+      - "--accesslog=true"   # Enable access logs to stdout
       - "--api.insecure=true"
       - --ping
     networks:
@@ -53,7 +42,12 @@ services:
       - /home/xstar97/docker/data/traefik/certs:/certs
     labels:
       traefik.enable: true
-      # traefik.http.services.traefik.loadbalancer.server.port: 8080
+      traefik.http.routers.traefik.rule: Host(`traefik.${BASE_DOMAIN}`)  # Expose dashboard
+      traefik.http.services.traefik.loadbalancer.server.port: 8080
+      traefik.http.routers.traefik.entrypoints: websecure
+      traefik.http.routers.traefik.tls: true
+      traefik.http.routers.traefik.tls.certResolver: cf
+      traefik.http.routers.traefik.middlewares: error-pages-middleware
       homepage.group: Networking
       homepage.name: Traefik
       homepage.icon: traefik.png
@@ -61,7 +55,7 @@ services:
       homepage.widget.type: traefik
       homepage.widget.url: ${HP_WIDGET_URL}
       homepage.description: Traefik dashboard
-      wud.tag.include: ^\d+\.\d+\.\d+$
+      wud.tag.include: ^\d+\.\d+\.\d+$$
     depends_on:
       error-pages: {condition: service_healthy}
   error-pages:
@@ -73,15 +67,22 @@ services:
       TEMPLATE_NAME: app-down # set the error pages template
     labels:
       traefik.enable: true
-      # Fallback router for 404/5xx errors - must be on web entrypoint for catch-all
+      traefik.http.routers.error-pages.rule: Host(`dozzle.${BASE_DOMAIN}`)
+      # traefik.http.services.dozzle.loadbalancer.server.port: 3314
+      traefik.http.routers.dozzle.entrypoints: websecure
+      traefik.http.routers.dozzle.tls: true
+      traefik.http.routers.dozzle.tls.certResolver: cf
+      # use as "fallback" for any NON-registered services (with priority below normal)
       traefik.http.routers.error-pages-router.rule: HostRegexp(`.+`)
-      traefik.http.routers.error-pages-router.priority: 1
-      traefik.http.routers.error-pages-router.entrypoints: web,websecure
-      # Error middleware definition
+      traefik.http.routers.error-pages-router.priority: 10
+      # should say that all of your services work on https
+      traefik.http.routers.error-pages-router.entrypoints: web
+      traefik.http.routers.error-pages-router.middlewares: error-pages-middleware
+      # "errors" middleware settings
       traefik.http.middlewares.error-pages-middleware.errors.status: 400-599
       traefik.http.middlewares.error-pages-middleware.errors.service: error-pages-service
       traefik.http.middlewares.error-pages-middleware.errors.query: /{status}.html
-      # Service config
+      # define service properties
       traefik.http.services.error-pages-service.loadbalancer.server.port: 8080
       wud.tag.include: ^\d+\.\d+\.\d+$
 networks:
