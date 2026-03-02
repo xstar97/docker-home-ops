@@ -7,7 +7,7 @@ x-healthcheck: &healthcheck
 
 services:
   traefik:
-    image: traefik:3.6.8
+    image: traefik:3.6.9
     container_name: traefik
     restart: on-failure
     healthcheck: *healthcheck
@@ -60,7 +60,7 @@ services:
       error-pages: {condition: service_healthy}
   error-pages:
     container_name: error-pages
-    image: ghcr.io/tarampampam/error-pages:3.8.0 # using the latest tag is highly discouraged
+    image: ghcr.io/tarampampam/error-pages:3.8.1 # using the latest tag is highly discouraged
     networks:
       - internal
     environment:
