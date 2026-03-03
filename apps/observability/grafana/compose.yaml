@@ -10,7 +10,7 @@ services:
     image: grafana/grafana:12.3.4
     container_name: grafana
     restart: on-failure
-    healthcheck: *healthcheck
+    # healthcheck: *healthcheck
     networks:
       - network_internal
       - internal
