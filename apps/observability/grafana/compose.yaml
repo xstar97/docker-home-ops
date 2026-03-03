@@ -22,11 +22,6 @@ services:
       GF_SERVER_ROOT_URL: https://grafana.${BASE_DOMAIN}
       # Paths
       GF_PATHS_CONFIG: /etc/grafana/grafana.ini
-      GF_PATHS_PROVISIONING: /etc/grafana/provisioning
-      GF_PATHS_DATA: /var/lib/grafana
-      GF_PATHS_PLUGINS: /var/lib/grafana/plugins
-      GF_PATHS_LOGS: /var/log/grafana
-      GF_PATHS_HOME: /usr/share/grafana
       # Security
       GF_SECURITY_ADMIN_USER: admin
       # GF_SECURITY_ADMIN_PASSWORD: MyS3cr3tP@ss # ha this is not set
@@ -39,8 +34,6 @@ services:
       GF_DATABASE_SSL_MODE: disable
     volumes:
       - /home/xstar97/docker/data/grafana/data:/var/lib/grafana
-      - /home/xstar97/docker/data/grafana/logs:/var/log/grafana
-      - /home/xstar97/docker/data/grafana/plugins:/var/lib/grafana/plugins
     labels:
       traefik.enable: true
       traefik.http.routers.grafana.rule: Host(`grafana.${BASE_DOMAIN}`)
