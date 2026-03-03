@@ -1,0 +1,80 @@
+x-healthcheck: &healthcheck
+  test: ["CMD","httpcheck","-t","5","http://localhost:3000/health"]
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 15s
+
+services:
+  grafana:
+    image: grafana/grafana:12.3.4
+    container_name: grafana
+    restart: on-failure
+    healthcheck: *healthcheck
+    networks:
+      - network_internal
+      - internal
+    ports:
+      - "3000:3000"
+    environment:
+      # Server
+      GF_SERVER_HTTP_PORT: 3000
+      GF_SERVER_ROOT_URL: https://grafana.${BASE_DOMAIN}
+      # Paths
+      GF_PATHS_CONFIG: /etc/grafana/grafana.ini
+      GF_PATHS_PROVISIONING: /etc/grafana/provisioning
+      GF_PATHS_DATA: /var/lib/grafana
+      GF_PATHS_PLUGINS: /var/lib/grafana/plugins
+      GF_PATHS_LOGS: /var/log/grafana
+      GF_PATHS_HOME: /usr/share/grafana
+      # Security
+      GF_SECURITY_ADMIN_USER: admin
+      # GF_SECURITY_ADMIN_PASSWORD: MyS3cr3tP@ss # ha this is not set
+      # Database (PostgreSQL example)
+      GF_DATABASE_TYPE: postgres
+      GF_DATABASE_HOST: grafana-db:5432
+      GF_DATABASE_NAME: grafana
+      GF_DATABASE_USER: grafana
+      GF_DATABASE_PASSWORD: grafana
+      GF_DATABASE_SSL_MODE: disable
+    volumes:
+      - /home/xstar97/docker/data/grafana/data:/var/lib/grafana
+      - /home/xstar97/docker/data/grafana/logs:/var/log/grafana
+      - /home/xstar97/docker/data/grafana/plugins:/var/lib/grafana/plugins
+    labels:
+      traefik.enable: true
+      traefik.http.routers.grafana.rule: Host(`grafana.${BASE_DOMAIN}`)
+      traefik.http.services.grafana.loadbalancer.server.port: 3000
+      traefik.http.routers.grafana.entrypoints: websecure
+      traefik.http.routers.grafana.tls: true
+      traefik.http.routers.grafana.tls.certResolver: cf
+      traefik.http.routers.grafana.middlewares: error-pages-middleware
+      wud.tag.include: ^\d+\.\d+\.\d+$
+  prometheus:
+    image: prom/prometheus:v3.10.0
+    container_name: prometheus
+    restart: always
+    networks:
+      - internal
+    ports:
+      - "9090"
+    volumes:
+      - /home/xstar97/docker/data/prometheus/data:/prometheus
+      - /home/xstar97/docker/data/prometheus/config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+  grafana-db:
+    image: postgres:15
+    container_name: grafana-db
+    restart: always
+    environment:
+      POSTGRES_USER: grafana
+      POSTGRES_PASSWORD: grafana
+      POSTGRES_DB: grafana
+    volumes:
+      - /home/xstar97/docker/data/grafana/db:/var/lib/postgresql/data
+    networks:
+      - internal
+networks:
+  network_internal:
+    external: true
+  internal:
+    driver: bridge
