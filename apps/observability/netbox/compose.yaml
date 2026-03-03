@@ -17,23 +17,6 @@ services:
     ports:
       - "8080"
     user: "netbox:root"
-    environment:
-      # Database
-      DB_NAME: netbox
-      DB_USER: netbox
-      DB_PASSWORD: netbox
-      DB_HOST: postgres
-      DB_PORT: 5432
-      # Redis
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-      REDIS_PASSWORD: netbox
-      # Redis Cache
-      REDIS_CACHE_HOST: redis-cache
-      REDIS_CACHE_PORT: 6379
-      REDIS_CACHE_PASSWORD: netbox
-      # NetBox settings
-      ALLOWED_HOSTS: "*"
     healthcheck:
       test: ["CMD","curl","-f","http://localhost:8080/login/"]
       interval: 15s
@@ -59,14 +42,6 @@ services:
       - /opt/netbox/netbox/manage.py
       - rqworker
     user: "netbox:root"
-    environment:
-      DB_NAME: netbox
-      DB_USER: netbox
-      DB_PASSWORD: netbox
-      DB_HOST: postgres
-      DB_PORT: 5432
-      REDIS_HOST: redis
-      REDIS_PASSWORD: netbox
     healthcheck:
       test: ["CMD-SHELL","ps aux | grep -v grep | grep -q rqworker"]
       interval: 15s
