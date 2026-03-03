@@ -62,7 +62,7 @@ services:
       - /home/xstar97/docker/data/prometheus/data:/prometheus
       - /home/xstar97/docker/data/prometheus/config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
   grafana-db:
-    image: postgres:15
+    image: postgres:18
     container_name: grafana-db
     restart: always
     environment:
