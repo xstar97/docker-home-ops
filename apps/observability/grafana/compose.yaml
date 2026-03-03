@@ -41,7 +41,7 @@ services:
       traefik.http.routers.grafana.entrypoints: websecure
       traefik.http.routers.grafana.tls: true
       traefik.http.routers.grafana.tls.certResolver: cf
-      traefik.http.routers.grafana.middlewares: error-pages-middleware
+      # traefik.http.routers.grafana.middlewares: error-pages-middleware
       wud.tag.include: ^\d+\.\d+\.\d+$
   prometheus:
     image: prom/prometheus:v3.10.0
