@@ -1,0 +1,83 @@
+services:
+  apprise:
+    image: caronc/apprise:1.3.2
+    restart: unless-stopped
+    container_name: apprise
+    networks:
+      - internal
+    ports:
+      - "8000"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fs -o /dev/null http://localhost:8000/status || curl -fs http://localhost:8000/status | grep -q 'OK'"]
+      start_period: 15s
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    environment:
+      TZ: America/New_York
+      APPRISE_WORKER_COUNT: 1
+    labels:
+      - wud.tag.include=^\d+\.\d+\.\d+$
+  doco-cd:
+    container_name: doco-cd
+    image: ghcr.io/kimdre/doco-cd:0.73.2
+    restart: unless-stopped
+    networks:
+      - network_internal
+      - internal
+    ports:
+      - "9080:9080" # Webhook endpoint
+      - "9120:9120" # Prometheus metrics
+    healthcheck:
+      test: [ "CMD", "/doco-cd", "healthcheck" ]
+      start_period: 15s
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    # For all available environment variables and explanations, 
+    # see https://github.com/kimdre/doco-cd/wiki/App-Settings
+    environment:
+      TZ: America/New_York
+      HTTP_PORT: 9080
+      API_SECRET_FILE: /run/secrets/key_api
+      WEBHOOK_SECRET_FILE: /run/secrets/key_webhook
+      SSH_PRIVATE_KEY_FILE: /run/secrets/ssh_private_key
+      SSH_PRIVATE_KEY_PASSPHRASE: ""
+      SOPS_AGE_KEY_FILE: /run/secrets/sops_age_key
+      APPRISE_API_URL: http://apprise:8000/notify
+      APPRISE_NOTIFY_LEVEL: success
+      APPRISE_NOTIFY_URLS_FILE: /run/secrets/key_apprise
+      POLL_CONFIG: |
+        - url: https://github.com/xstar97/docker-home-ops
+          run_once: true
+    secrets:
+      - ssh_private_key
+      - sops_age_key
+      - key_apprise
+      - key_api
+      - key_webhook
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - data:/data
+    depends_on:
+      - apprise
+    labels:
+      - wud.tag.include=^\d+\.\d+\.\d+$
+secrets:
+  ssh_private_key:
+    file: ${SSH_PRIVATE_KEY_FILE}
+  sops_age_key:
+    file: ${SOPS_AGE_KEY_FILE}
+  key_api:
+    file: ${API_SECRET_FILE}
+  key_webhook:
+    file: ${WEBHOOK_SECRET_FILE}
+  key_apprise:
+    file: ${APPRISE_NOTIFY_URLS_FILE}
+networks:
+  network_internal:
+    external: true
+  internal:
+    driver: bridge
+volumes:
+  data: {}
