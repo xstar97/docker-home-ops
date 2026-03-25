@@ -28,6 +28,8 @@ services:
       - --entrypoints.websecure.http.tls.domains[0].main=*.${BASE_DOMAIN}
       - --providers.docker=true
       - --providers.docker.exposedByDefault=false
+      - --providers.file.directory=/etc/traefik/dynamic
+      - --providers.file.watch=true
       - "--log.level=DEBUG"  # Set log level to DEBUG
       - "--accesslog=true"   # Enable access logs to stdout
       - "--api.insecure=true"
@@ -42,6 +44,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /home/xstar97/docker/data/traefik/certs:/certs
+      - /home/xstar97/docker/data/traefik/dynamic:/etc/traefik/dynamic
     labels:
       traefik.enable: true
       traefik.http.routers.traefik.rule: Host(`traefik.${BASE_DOMAIN}`)  # Expose dashboard
