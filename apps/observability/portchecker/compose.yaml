@@ -37,7 +37,7 @@ services:
       traefik.http.routers.portchecker.tls.certResolver: cf
       traefik.http.routers.portchecker.middlewares: error-pages-middleware
   portchecker-api:
-    image: ghcr.io/dsgnr/portcheckerio-api:3.4.0
+    image: ghcr.io/dsgnr/portcheckerio-api:4.0.1
     container_name: portchecker-api
     restart: on-failure
     healthcheck: *healthcheckApi
