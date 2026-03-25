@@ -11,6 +11,8 @@ services:
     container_name: traefik
     restart: on-failure
     healthcheck: *healthcheck
+    environment:
+      - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
     command:
       - --certificatesresolvers.cf.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.cf.acme.dnsChallenge.delayBeforeCheck=0
