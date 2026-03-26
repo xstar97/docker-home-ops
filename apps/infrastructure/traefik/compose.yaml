@@ -7,7 +7,7 @@ x-healthcheck: &healthcheck
 
 services:
   traefik:
-    image: traefik:v3.6.11
+    image: traefik:v3.6.12
     container_name: traefik
     restart: on-failure
     healthcheck: *healthcheck
