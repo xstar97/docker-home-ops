@@ -1,6 +1,6 @@
 services:
   apprise:
-    image: caronc/apprise:v1.3.3
+    image: caronc/apprise:v1.4.0
     restart: unless-stopped
     container_name: apprise
     networks:
