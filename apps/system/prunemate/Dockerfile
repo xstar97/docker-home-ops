@@ -1,5 +1,5 @@
 ARG PRUNEMATE_VERSION=1.3.3
-ARG MC_VERSION=1.3.0
+ARG MC_VERSION=1.4.0
 
 # Stage 1: microcheck binaries
 FROM ghcr.io/tarampampam/microcheck:${MC_VERSION} AS microcheck
