@@ -1,5 +1,22 @@
+name: main
+reference: main
 working_dir: apps/
-auto_discover: true
-auto_discover_opts:
+auto_discover:
+  enabled: true
   depth: 0
   delete: true
+#force_recreate: false
+#prune_images: true
+force_image_pull: false
+reconciliation:
+  enabled: true
+  restart_timeout: 10
+  restart_limit: 5
+  restart_window: 300
+  events:
+    #- stop
+    #- die
+    #- destroy
+    #- unhealthy
+    #- oom
+    - kill
