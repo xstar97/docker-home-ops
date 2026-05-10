@@ -49,7 +49,7 @@ services:
       APPRISE_NOTIFY_URLS_FILE: /run/secrets/key_apprise
       POLL_CONFIG: |
         - url: https://github.com/xstar97/docker-home-ops
-          run_once: true
+          run_once: false
     secrets:
       - ssh_private_key
       - sops_age_key

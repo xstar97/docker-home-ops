@@ -1,4 +1,4 @@
-# name: main
+name: main
 # reference: main
 # repository_url: https://github.com/xstar97/docker-home-ops
 working_dir: ./apps/
