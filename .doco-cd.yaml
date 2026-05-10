@@ -1,4 +1,5 @@
+name: gitops
 working_dir: apps/
 auto_discovery:
   enabled: true
-  depth: 2
+  depth: 0
