@@ -1,4 +1,3 @@
-name: ""
 working_dir: apps/
 auto_discovery:
   enabled: true

@@ -47,6 +47,7 @@ services:
       APPRISE_API_URL: http://apprise:8000/notify
       APPRISE_NOTIFY_LEVEL: success
       APPRISE_NOTIFY_URLS_FILE: /run/secrets/key_apprise
+      DOCKER_SWARM_FEATURES: false
       POLL_CONFIG: |
         - url: https://github.com/xstar97/docker-home-ops
           run_once: true
