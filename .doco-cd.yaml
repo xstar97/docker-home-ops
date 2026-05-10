@@ -1,10 +1,10 @@
 name: main
 # reference: main
 # repository_url: https://github.com/xstar97/docker-home-ops
-working_dir: apps/
+working_dir: ./apps/
 auto_discover:
   enabled: true
-  depth: 1
+  depth: 0
   delete: true
 #force_recreate: false
 prune_images: true
