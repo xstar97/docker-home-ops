@@ -4,8 +4,8 @@ name: main
 working_dir: ./apps/
 auto_discover:
   enabled: true
-  depth: 0
-  delete: true
+  depth: 1
+  delete: false # true
 #force_recreate: false
 prune_images: true
 force_image_pull: true
