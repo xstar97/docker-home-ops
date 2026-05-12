@@ -20,7 +20,7 @@ services:
       - wud.tag.include=^\d+\.\d+\.\d+$
   
   doco-cd:
-    image: ghcr.io/kimdre/doco-cd:0.86.0
+    image: ghcr.io/kimdre/doco-cd:0.87.0
     container_name: doco-cd
     restart: unless-stopped
     networks:
