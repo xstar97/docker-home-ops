@@ -65,7 +65,7 @@ services:
       error-pages: {condition: service_healthy}
   error-pages:
     container_name: error-pages
-    image: ghcr.io/tarampampam/error-pages:4.1.0 # using the latest tag is highly discouraged
+    image: ghcr.io/tarampampam/error-pages:4.2.0 # using the latest tag is highly discouraged
     networks:
       - internal
     environment:
