@@ -1,4 +1,4 @@
-ARG GATUS_VERSION=v5.35.0
+ARG GATUS_VERSION=v5.36.0
 ARG MC_VERSION=1.4.0
 
 # Stage 1: microcheck binaries
